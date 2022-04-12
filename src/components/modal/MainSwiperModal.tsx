@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Button } from '../Button';
 import { ModalAnimation } from './ModalAnimation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';

@@ -1,11 +1,6 @@
 import React from 'react';
-import { BarChart } from '../components/chartjs/BarChart';
-import { PieChart } from '../components/chartjs/PieChart';
 import { FillterBar } from '../components/FillterBar';
 import { TextField } from '../components/TextField';
-
-const Labels2 = ['WT', 'PV', 'CHP', 'Fcell'];
-const Prices2 = [2, 5, 2, 8];
 
 export const SummaryPage = () => {
   return (
