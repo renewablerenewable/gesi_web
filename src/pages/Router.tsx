@@ -42,9 +42,9 @@ export const Router = () => {
             <AuthRoute path="/signup" component={SignupPage} guestOnly />
             <AuthRoute path="/login" component={LoginPage} guestOnly />
             <AuthRoute path="/mypage" component={MyPage} />
-            <Route path="/" component={HomePage} exact />
+            {/* <Route path="/" component={HomePage} exact /> */}
             <Route path="/">
-              <Redirect to="/" />
+              <Redirect to="/overview" />
             </Route>
           </Switch>
         </div>

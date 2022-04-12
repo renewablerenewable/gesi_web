@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Tab } from './Tab';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -17,31 +17,34 @@ const tab = [
 
 export const TopNavBar = () => {
   const { pathname } = useLocation();
+  const {push} = useHistory();
   return (
     <div className="w-screen border-b-2 sticky top-0 bg-white">
-      <div className="max-w-screen-2xl mx-auto px-4 py-4 w-full text-xl font-semibold">
+      <div className="max-w-screen-2xl mx-auto px-4 py-4 w-full text-xl font-semibold cursor-pointer" onClick={()=>push('/')}>
         Green analytics
       </div>
       {!pathname.startsWith('/info') && (
-        <Swiper
-          slidesPerView="auto"
-          spaceBetween={30}
-          slidesOffsetBefore={0}
-          slidesOffsetAfter={0}
-          freeMode={true}
-          className="border-t-2 px-4 pt-6"
-        >
-          {tab.map((e) => (
-            <SwiperSlide className="w-auto">
-              <Tab
-                className=""
-                text={e.text}
-                to={e.path}
-                selected={pathname === e.path}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <div className="border-t-2 ">
+          <Swiper
+            slidesPerView="auto"
+            spaceBetween={30}
+            slidesOffsetBefore={0}
+            slidesOffsetAfter={0}
+            freeMode={true}
+            className="px-4 pt-6 max-w-screen-2xl"
+          >
+            {tab.map((e) => (
+              <SwiperSlide className="w-auto">
+                <Tab
+                  className=""
+                  text={e.text}
+                  to={e.path}
+                  selected={pathname === e.path}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       )}
     </div>
   );

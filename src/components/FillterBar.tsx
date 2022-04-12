@@ -15,7 +15,7 @@ export const FillterBar = () => {
 
   return (
     <div className="border p-5 bg-white my-5 mx-4">
-      <div className="grid grid-cols-3 gap-x-10 gap-y-5">
+      <div className="grid xl:grid-cols-3 grid-cols-2 gap-x-10 gap-y-5">
         <div className="flex">
           <LabelButton to="" label="Target" />
 
@@ -65,7 +65,7 @@ export const FillterBar = () => {
           </div>
         </div>
 
-        <div className="col-span-3 border-t border-gray-100" />
+        <div className="col-start-1 col-span-3 border-t border-gray-100" />
 
         <div className="flex">
           <LabelButton to="/info/transport" label="Transport" />
@@ -125,7 +125,7 @@ export const FillterBar = () => {
           </div>
         </div>
 
-        <div className="flex">
+        <div className="flex col-start-1 xl:col-start-3">
           <LabelButton to="/info/industry" label="Industry" />
           <div className="mx-3 space-y-1 my-1">
             <div className="label">효율개선{`&`}에너지원 전환</div>
@@ -149,7 +149,7 @@ export const FillterBar = () => {
           </div>
         </div>
 
-        <div className="col-span-3 border-t border-gray-100" />
+        <div className="col-start-1 col-span-3 border-t border-gray-100" />
 
         <div className="flex col-span-3">
           <div className="flex-1 flex">
