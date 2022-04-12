@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       colors: {
         'brand-1': '#7950F2',
+        'deep-blue': '#0C4A6E',
         // error: defaultTheme.colors.red[400],
         littleblack: 'rgba(0, 0, 0, 0.5)',
         gray: {

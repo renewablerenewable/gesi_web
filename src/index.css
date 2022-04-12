@@ -22,7 +22,7 @@
     @apply inline-block align-middle rounded-full overflow-hidden bg-gray-100;
   }
   .button {
-    @apply px-4 h-12 rounded-lg font-bold;
+    @apply px-4 h-12 rounded-lg text-sm font-medium;
   }
   .card {
     @apply flex flex-col rounded-lg border border-gray-200 divide-y divide-gray-200 overflow-hidden shadow;
