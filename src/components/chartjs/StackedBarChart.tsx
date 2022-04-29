@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Chart as ChartJS,
+  ChartData,
   CategoryScale,
   LinearScale,
   BarElement,
@@ -21,31 +22,11 @@ ChartJS.register(
 
 interface StackedBarChartProps {
   title?: string;
+  simulation?: object;
 }
 
-export const StackedBarChart: React.FC<StackedBarChartProps> = ({ title }) => {
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'right' as const,
-      },
-      title: {
-        display: true,
-        text: title,
-      },
-    },
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
-      },
-    },
-  };
-
-  const data = {
+export const StackedBarChart: React.FC<StackedBarChartProps> = ({ title, simulation }) => {
+  const [data, setData] = useState<ChartData<"bar", number[], unknown>>({
     labels: [''],
     datasets: [
       {
@@ -79,7 +60,30 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({ title }) => {
         barThickness: 50,
       },
     ],
+  });
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'right' as const,
+      },
+      title: {
+        display: true,
+        text: title,
+      },
+    },
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
   };
+
+
 
   return (
     <div className="w-full">
