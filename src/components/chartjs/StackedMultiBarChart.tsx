@@ -26,7 +26,15 @@ interface StackedMultiBarChartProps {
 }
 
 // Need to apply some color scheme
-const backgroundColor: string[] = ['#ED6E85', '#F1A354', '#F7CE6B', '#4598F8', '#7845F6', '#150234', '#BC3EDF']
+const backgroundColor: string[] = [
+  '#ED6E85',
+  '#F1A354',
+  '#F7CE6B',
+  '#6CBDBF',
+  '#4598F8',
+  '#7845F6',
+  '#C9CBCF',
+]
 
 export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
   title,

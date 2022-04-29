@@ -88,6 +88,7 @@ export const BarChart: React.FC<BarChartProps> = ({ title, simulation }) => {
         backgroundColor: backgroundColor[index]
       });
     });
+    
     if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
       setData(newData);
     }
