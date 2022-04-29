@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Button } from './Button';
 import { LabelButton } from './LabelButton';
-
 import { SelectButton } from './SelectButton';
 
+import { scenarioState, simulationState } from '../plugins/ridge';
+
 export const FillterBar = () => {
-  const [target, setTarget] = useState<boolean>(false);
-  const [ndc, setNdc] = useState<number>(0);
-  const [transport, setTransport] = useState<number>(0);
-  const [building, setBuilding] = useState<number>(0);
-  const [industry, setIndustry] = useState<number>(0);
-  const [powerPv, setPowerPv] = useState<number>(0);
-  const [powerWt, setPowerWt] = useState<number>(0);
+  const [scenario, setScenario] = scenarioState.use(); 
+
+  const [target, setTarget] = useState<boolean>(scenario.target);
+  const [ndc, setNdc] = useState<number>(scenario.ndc);
+  const [transport, setTransport] = useState<number>(scenario.transport);
+  const [building, setBuilding] = useState<number>(scenario.building);
+  const [industry, setIndustry] = useState<number>(scenario.industry);
+  const [powerPv, setPowerPv] = useState<number>(scenario.powerPv);
+  const [powerWt, setPowerWt] = useState<number>(scenario.powerWt);
 
   return (
     <div className="border p-5 bg-white my-5 mx-4">
@@ -175,7 +178,7 @@ export const FillterBar = () => {
             </div>
 
             <div className="flex items-center">
-              <div className="label px-3">PV 비중</div>
+              <div className="label px-3">WT 비중</div>
               <SelectButton
                 text="0.5"
                 selected={powerWt === 0}
@@ -193,7 +196,24 @@ export const FillterBar = () => {
               />
             </div>
           </div>
-          <Button text="시나리오 생성	+" className="filled-deep-blue px-8" />
+          <Button 
+            text="시나리오 생성	+" 
+            className="filled-deep-blue px-8" 
+            onClick={() => {
+              // console.log(scenarioState.get());
+              setScenario({
+                target: target,
+                ndc: ndc,
+                transport: transport,
+                building: building,
+                industry: industry,
+                powerPv: powerPv,
+                powerWt: powerWt
+              });
+              // console.log(scenarioState.get());
+              console.log(simulationState.get())
+            }}
+          />
         </div>
       </div>
     </div>
