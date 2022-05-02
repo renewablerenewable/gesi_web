@@ -44,36 +44,36 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
     {
       labels: ['산업', '건물', '수송'],
       datasets: [
-        {
-          label: 'Dataset 1',
-          data: [5, 20, 14],
-          backgroundColor: '#ED6E85',
-          barThickness: 50,
-        },
-        {
-          label: 'Dataset 2',
-          data: [3, 5, 7],
-          backgroundColor: '#F1A354',
-          barThickness: 50,
-        },
-        {
-          label: 'Dataset 3',
-          data: [10, 12, 5],
-          backgroundColor: '#F7CE6B',
-          barThickness: 50,
-        },
-        {
-          label: 'Dataset 3',
-          data: [10, 8, 7],
-          backgroundColor: '#4598F8',
-          barThickness: 50,
-        },
-        {
-          label: 'Dataset 3',
-          data: [10, 15, 9],
-          backgroundColor: '#7845F6',
-          barThickness: 50,
-        },
+        // {
+        //   label: 'Dataset 1',
+        //   data: [5, 20, 14],
+        //   backgroundColor: '#ED6E85',
+        //   barThickness: 50,
+        // },
+        // {
+        //   label: 'Dataset 2',
+        //   data: [3, 5, 7],
+        //   backgroundColor: '#F1A354',
+        //   barThickness: 50,
+        // },
+        // {
+        //   label: 'Dataset 3',
+        //   data: [10, 12, 5],
+        //   backgroundColor: '#F7CE6B',
+        //   barThickness: 50,
+        // },
+        // {
+        //   label: 'Dataset 3',
+        //   data: [10, 8, 7],
+        //   backgroundColor: '#4598F8',
+        //   barThickness: 50,
+        // },
+        // {
+        //   label: 'Dataset 3',
+        //   data: [10, 15, 9],
+        //   backgroundColor: '#7845F6',
+        //   barThickness: 50,
+        // },
       ],
     }
   );

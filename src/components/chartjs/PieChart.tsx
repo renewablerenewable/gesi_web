@@ -44,14 +44,17 @@ export const PieChart: React.FC<PieChartProps> = ({
   simulation,
 }) => {
   const [data, setData] = useState<ChartData<"pie", number[], string>>({
-    labels: ['WT', 'PV', 'CHP', 'Fcell'],
+    labels: [],
     datasets: [
       {
-        // label: 'Dataset 1',
-        backgroundColor: backgroundColor,
-        data: [2, 5, 2, 8],
-        borderWidth: 1,
-      },
+        data: [1]
+      }
+      // {
+      //   // label: 'Dataset 1',
+      //   backgroundColor: backgroundColor,
+      //   data: [2, 5, 2, 8],
+      //   borderWidth: 1,
+      // },
     ],
   });
 
@@ -69,6 +72,7 @@ export const PieChart: React.FC<PieChartProps> = ({
   };
 
   if (simulation) {
+    // Deep copy data and clear datasets
     let newData: ChartData<"pie", number[], string> = JSON.parse(JSON.stringify(data));
     newData.datasets.length = 0;
 
@@ -76,8 +80,10 @@ export const PieChart: React.FC<PieChartProps> = ({
     let newDatasetData: number[] = [];
 
     Object.entries(simulation).forEach(([key, value], index) => {
-      newLabels.push(key)
-      newDatasetData.push(value)
+      if (key !== 'total') {
+        newLabels.push(key)
+        newDatasetData.push(value)
+      }
     });
 
     newData.labels = newLabels;
@@ -99,15 +105,7 @@ export const PieChart: React.FC<PieChartProps> = ({
       datasets: [
         {
           // label: 'Dataset 1',
-          backgroundColor: [
-            '#ED6E85',
-            '#F1A354',
-            '#F7CE6B',
-            '#6CBDBF',
-            '#4598F8',
-            '#7845F6',
-            '#C9CBCF',
-          ],
+          backgroundColor: backgroundColor,
           data: amount,
           // barThickness: 20, // width of bar
           // datalabels: { display: false },
