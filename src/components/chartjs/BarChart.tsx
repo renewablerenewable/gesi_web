@@ -21,43 +21,17 @@ ChartJS.register(
 interface BarChartProps {
   title?: string;
   simulation?: object;
+  dataOptions?: object;
 }
 
 const backgroundColor: string[] = ['#ED6E85', '#F1A354', '#F7CE6B', '#4598F8', '#7845F6']
 
-export const BarChart: React.FC<BarChartProps> = ({ title, simulation }) => {
+export const BarChart: React.FC<BarChartProps> = ({ title, simulation, dataOptions }) => {
   const [data, setData] = useState<ChartData<"bar", number[], unknown>>({
     labels: [''],
     datasets: [
       {
-        label: 'Dataset 1',
-        data: [5],
-        backgroundColor: '#ED6E85',
-        barThickness: 50,
-      },
-      {
-        label: 'Dataset 2',
-        data: [3],
-        backgroundColor: '#F1A354',
-        barThickness: 50,
-      },
-      {
-        label: 'Dataset 3',
-        data: [12],
-        backgroundColor: '#F7CE6B',
-        barThickness: 50,
-      },
-      {
-        label: 'Dataset 3',
-        data: [20],
-        backgroundColor: '#4598F8',
-        barThickness: 50,
-      },
-      {
-        label: 'Dataset 3',
-        data: [15],
-        backgroundColor: '#7845F6',
-        barThickness: 50,
+        data: [],
       },
     ],
   });
@@ -80,11 +54,21 @@ export const BarChart: React.FC<BarChartProps> = ({ title, simulation }) => {
     let newData: ChartData<"bar", number[], unknown> = JSON.parse(JSON.stringify(data));
     newData.datasets.length = 0;
 
+    // Default Values
+    let barThickness = 50;
+
+    if (dataOptions) {
+      Object.entries(dataOptions).forEach(([key, value], index) => {
+        if (key === 'barThickness')
+          barThickness = value;
+      });
+    }
+
     Object.entries(simulation).forEach(([key, value], index) => {
       newData.datasets.push({
         label: key,
         data: [value],
-        barThickness: 50,
+        barThickness: barThickness,
         backgroundColor: backgroundColor[index]
       });
     });

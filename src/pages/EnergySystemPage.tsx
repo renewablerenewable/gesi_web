@@ -4,6 +4,10 @@ import { PieChart } from '../components/chartjs/PieChart';
 import { FillterBar } from '../components/FillterBar';
 import { simulationState } from '../plugins/ridge';
 
+const barChartOptions = {
+  barThickness: 20
+}
+
 export const EnergySystemPage = () => {
   return (
     <div>
@@ -12,10 +16,14 @@ export const EnergySystemPage = () => {
           {/* <div className="h-[100px]"> */}
           <PieChart
             title="발전설비별 전력생산비중"
-            simulation={ simulationState.useSelector((state) => state?.facility_configuration) }
+            simulation={ simulationState.useSelector((state) => state?.power_generation) }
           />
           {/* </div> */}
-          <BarChart title="발전설비구성" />
+          <BarChart 
+            title="발전설비구성" 
+            simulation={ simulationState.useSelector((state) => state?.facility_configuration) }
+            dataOptions={ barChartOptions }
+          />
         </div>
       </div>
       <FillterBar />
