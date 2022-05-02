@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Button } from './Button';
 import { LabelButton } from './LabelButton';
-
 import { SelectButton } from './SelectButton';
 
+import { scenarioState } from '../plugins/ridge';
+
 export const FillterBar = () => {
-  const [target, setTarget] = useState<boolean>(false);
-  const [ndc, setNdc] = useState<number>(0);
-  const [transport, setTransport] = useState<number>(0);
-  const [building, setBuilding] = useState<number>(0);
-  const [industry, setIndustry] = useState<number>(0);
-  const [powerPv, setPowerPv] = useState<number>(0);
-  const [powerWt, setPowerWt] = useState<number>(0);
+  const [scenario, setScenario] = scenarioState.use(); 
+
+  const [target, setTarget] = useState<boolean>(scenario.target);
+  const [ndc, setNdc] = useState<number>(scenario.ndc);
+  const [transport, setTransport] = useState<number>(scenario.transport);
+  const [building, setBuilding] = useState<number>(scenario.building);
+  const [industry, setIndustry] = useState<number>(scenario.industry);
+  const [powerPv, setPowerPv] = useState<number>(scenario.powerPv);
+  const [powerWt, setPowerWt] = useState<number>(scenario.powerWt);
 
   return (
     <div className="border p-5 bg-white my-5 mx-4">
@@ -160,40 +163,72 @@ export const FillterBar = () => {
               <SelectButton
                 text="0.5"
                 selected={powerPv === 0}
-                onClick={() => setPowerPv(0)}
+                onClick={() => {
+                  setPowerPv(0);
+                  setPowerWt(0);
+                }}
               />
               <SelectButton
                 text="0.7"
                 selected={powerPv === 1}
-                onClick={() => setPowerPv(1)}
+                onClick={() => {
+                  setPowerPv(1);
+                  setPowerWt(1);
+                }}
               />
               <SelectButton
                 text="0.9"
                 selected={powerPv === 2}
-                onClick={() => setPowerPv(2)}
+                onClick={() => {
+                  setPowerPv(2);
+                  setPowerWt(2);
+                }}
               />
             </div>
 
             <div className="flex items-center">
-              <div className="label px-3">PV 비중</div>
+              <div className="label px-3">WT 비중</div>
               <SelectButton
                 text="0.5"
                 selected={powerWt === 0}
-                onClick={() => setPowerWt(0)}
+                onClick={() => {
+                  setPowerPv(0);
+                  setPowerWt(0);
+                }}
               />
               <SelectButton
                 text="0.3"
                 selected={powerWt === 1}
-                onClick={() => setPowerWt(1)}
+                onClick={() => {
+                  setPowerPv(1);
+                  setPowerWt(1);
+                }}
               />
               <SelectButton
                 text="0.1"
                 selected={powerWt === 2}
-                onClick={() => setPowerWt(2)}
+                onClick={() => {
+                  setPowerPv(2);
+                  setPowerWt(2);
+                }}
               />
             </div>
           </div>
-          <Button text="시나리오 생성	+" className="filled-deep-blue px-8" />
+          <Button 
+            text="시나리오 생성	+" 
+            className="filled-deep-blue px-8" 
+            onClick={() => {
+              setScenario({
+                target: target,
+                ndc: ndc,
+                transport: transport,
+                building: building,
+                industry: industry,
+                powerPv: powerPv,
+                powerWt: powerWt
+              });
+            }}
+          />
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Chart as ChartJS,
+  ChartData,
   CategoryScale,
   LinearScale,
   BarElement,
@@ -9,13 +10,32 @@ import {
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
+ChartJS.register(
+  CategoryScale, 
+  LinearScale, 
+  BarElement, 
+  Title, 
+  Tooltip
+);
 
 interface BarChartProps {
   title?: string;
+  simulation?: object;
+  dataOptions?: object;
 }
 
-export const BarChart: React.FC<BarChartProps> = ({ title }) => {
+const backgroundColor: string[] = ['#ED6E85', '#F1A354', '#F7CE6B', '#4598F8', '#7845F6']
+
+export const BarChart: React.FC<BarChartProps> = ({ title, simulation, dataOptions }) => {
+  const [data, setData] = useState<ChartData<"bar", number[], unknown>>({
+    labels: [''],
+    datasets: [
+      {
+        data: [],
+      },
+    ],
+  });
+
   const options = {
     responsive: true,
     plugins: {
@@ -29,41 +49,34 @@ export const BarChart: React.FC<BarChartProps> = ({ title }) => {
     },
   };
 
-  const data = {
-    labels: [''],
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: [5],
-        backgroundColor: '#ED6E85',
-        barThickness: 50,
-      },
-      {
-        label: 'Dataset 2',
-        data: [3],
-        backgroundColor: '#F1A354',
-        barThickness: 50,
-      },
-      {
-        label: 'Dataset 3',
-        data: [12],
-        backgroundColor: '#F7CE6B',
-        barThickness: 50,
-      },
-      {
-        label: 'Dataset 3',
-        data: [20],
-        backgroundColor: '#4598F8',
-        barThickness: 50,
-      },
-      {
-        label: 'Dataset 3',
-        data: [15],
-        backgroundColor: '#7845F6',
-        barThickness: 50,
-      },
-    ],
-  };
+  if (simulation) {
+    // Deep copy data and clear datasets
+    let newData: ChartData<"bar", number[], unknown> = JSON.parse(JSON.stringify(data));
+    newData.datasets.length = 0;
+
+    // Default Values
+    let barThickness = 50;
+
+    if (dataOptions) {
+      Object.entries(dataOptions).forEach(([key, value], index) => {
+        if (key === 'barThickness')
+          barThickness = value;
+      });
+    }
+
+    Object.entries(simulation).forEach(([key, value], index) => {
+      newData.datasets.push({
+        label: key,
+        data: [value],
+        barThickness: barThickness,
+        backgroundColor: backgroundColor[index]
+      });
+    });
+    
+    if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
+      setData(newData);
+    }
+  }
 
   return (
     <div className="w-full">

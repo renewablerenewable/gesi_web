@@ -34,7 +34,7 @@ export const TopNavBar = () => {
             className="px-4 pt-6 max-w-screen-2xl"
           >
             {tab.map((e) => (
-              <SwiperSlide className="w-auto">
+              <SwiperSlide className="w-auto" key={e.id}>
                 <Tab
                   className=""
                   text={e.text}
