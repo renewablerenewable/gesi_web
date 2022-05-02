@@ -3,7 +3,7 @@ import { Button } from './Button';
 import { LabelButton } from './LabelButton';
 import { SelectButton } from './SelectButton';
 
-import { scenarioState, simulationState } from '../plugins/ridge';
+import { scenarioState } from '../plugins/ridge';
 
 export const FillterBar = () => {
   const [scenario, setScenario] = scenarioState.use(); 
@@ -163,17 +163,26 @@ export const FillterBar = () => {
               <SelectButton
                 text="0.5"
                 selected={powerPv === 0}
-                onClick={() => setPowerPv(0)}
+                onClick={() => {
+                  setPowerPv(0);
+                  setPowerWt(0);
+                }}
               />
               <SelectButton
                 text="0.7"
                 selected={powerPv === 1}
-                onClick={() => setPowerPv(1)}
+                onClick={() => {
+                  setPowerPv(1);
+                  setPowerWt(1);
+                }}
               />
               <SelectButton
                 text="0.9"
                 selected={powerPv === 2}
-                onClick={() => setPowerPv(2)}
+                onClick={() => {
+                  setPowerPv(2);
+                  setPowerWt(2);
+                }}
               />
             </div>
 
@@ -182,17 +191,26 @@ export const FillterBar = () => {
               <SelectButton
                 text="0.5"
                 selected={powerWt === 0}
-                onClick={() => setPowerWt(0)}
+                onClick={() => {
+                  setPowerPv(0);
+                  setPowerWt(0);
+                }}
               />
               <SelectButton
                 text="0.3"
                 selected={powerWt === 1}
-                onClick={() => setPowerWt(1)}
+                onClick={() => {
+                  setPowerPv(1);
+                  setPowerWt(1);
+                }}
               />
               <SelectButton
                 text="0.1"
                 selected={powerWt === 2}
-                onClick={() => setPowerWt(2)}
+                onClick={() => {
+                  setPowerPv(2);
+                  setPowerWt(2);
+                }}
               />
             </div>
           </div>
@@ -200,7 +218,6 @@ export const FillterBar = () => {
             text="시나리오 생성	+" 
             className="filled-deep-blue px-8" 
             onClick={() => {
-              // console.log(scenarioState.get());
               setScenario({
                 target: target,
                 ndc: ndc,
@@ -210,8 +227,6 @@ export const FillterBar = () => {
                 powerPv: powerPv,
                 powerWt: powerWt
               });
-              // console.log(scenarioState.get());
-              console.log(simulationState.get())
             }}
           />
         </div>

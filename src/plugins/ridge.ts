@@ -29,10 +29,9 @@ export const scenarioState = newRidgeState<Scenario>(
       if (newState) {
         getData(newState.target, newState.ndc, newState.transport, newState.building, newState.industry,newState.powerPv,newState.powerWt)
         .then((data) => {
-          console.log(data);
-          simulationState.set(<Simulation>data);
-        })
-        
+          // console.log(data);
+          simulationState.set(data as Simulation);
+        });
       }
     }
   }

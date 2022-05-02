@@ -1,7 +1,7 @@
 
 import { ndcMap, transportMap, buildingMap, industryMap, powerPvMap, powerWtMap } from './types'
 
-export function getData(target: boolean, ndc: number, transport: number, building: number, industry: number, powerPv: number, powerWt: number) {
+export async function getData(target: boolean, ndc: number, transport: number, building: number, industry: number, powerPv: number, powerWt: number) {
 
   const year = target ? 2050 : 2030;
   const _ndc = ndcMap[ndc];
@@ -18,7 +18,7 @@ export function getData(target: boolean, ndc: number, transport: number, buildin
   } else {
       file = `${year}_${_ndc}_${pv}_${wt}_${buildingRetrofitRate}_${bevShares}_${industryDecarbonizationLevel}.json`
   }
-  const url = `data/${file}`
+  const url = `/data/${file}`
 
   return fetch(url, {
     headers: {
@@ -26,7 +26,6 @@ export function getData(target: boolean, ndc: number, transport: number, buildin
       'Accept': 'application/json'
     }
   }).then((response) => {
-    // console.log(url, response);
     return response.json();
   })
 }

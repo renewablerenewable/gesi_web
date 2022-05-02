@@ -8949,17 +8949,17 @@ export interface RepEconomic {
 }
 
 export interface EnergyDemand {
-  coal: CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal;
-  oil: CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal;
-  LNG: CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal;
-  electricity: CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal;
-  heat: CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal;
-  hydrogen: CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal;
-  other: CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal;
-  total: CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal;
+  coal: ResourceConsumption;
+  oil: ResourceConsumption;
+  LNG: ResourceConsumption;
+  electricity: ResourceConsumption;
+  heat: ResourceConsumption;
+  hydrogen: ResourceConsumption;
+  other: ResourceConsumption;
+  total: ResourceConsumption;
 }
 
-export interface CoalOrOilOrLNGOrElectricityOrHeatOrHydrogenOrOtherOrTotal {
+export interface ResourceConsumption {
   industry: number;
   building: number;
   transportation: number;
@@ -9030,16 +9030,16 @@ export interface P2H1 {
 }
 
 export interface P2HConsumptionChange {
-  home: HomeOrCommerce;
-  commerce: HomeOrCommerce;
+  home: HeatEnergyConsumptionChange;
+  commerce: HeatEnergyConsumptionChange;
 }
 
-export interface HomeOrCommerce {
-  init_year: InitYearOrEndYear;
-  end_year: InitYearOrEndYear;
+export interface HeatEnergyConsumptionChange {
+  init_year: HeatEnergyResource;
+  end_year: HeatEnergyResource;
 }
 
-export interface InitYearOrEndYear {
+export interface HeatEnergyResource {
   district_heating: number;
   city_gas: number;
   oil: number;
