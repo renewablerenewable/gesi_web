@@ -1,6 +1,7 @@
 import React from 'react';
 import { FillterBar } from '../components/FillterBar';
 import { TextField } from '../components/TextField';
+import { simulationState } from '../plugins/ridge';
 
 export const SummaryPage = () => {
   return (
@@ -13,7 +14,11 @@ export const SummaryPage = () => {
                 <td className="pr-10">최종 에너지 소비</td>
                 <td>
                   <div className="flex items-center space-x-3">
-                    <TextField type="number" />
+                    <TextField 
+                      type="number" 
+                      value={ simulationState.useSelector((state) => state?.energy_demand.total.total) } 
+                      readOnly
+                    />
                     <div>TWh</div>
                   </div>
                 </td>
@@ -22,7 +27,11 @@ export const SummaryPage = () => {
                 <td>온실가스 배출량</td>
                 <td>
                   <div className="flex items-center space-x-3">
-                    <TextField type="number" />
+                    <TextField 
+                      type="number" 
+                      value={ simulationState.useSelector((state) => state?.emissions.total) } 
+                      readOnly
+                    />
                     <div>MtCO2</div>
                   </div>
                 </td>
@@ -31,7 +40,11 @@ export const SummaryPage = () => {
                 <td>재생에너지 비중</td>
                 <td>
                   <div className="flex items-center space-x-3">
-                    <TextField type="number" />
+                    <TextField 
+                      type="number" 
+                      // value={  } 
+                      readOnly
+                    />
                     <div>%</div>
                   </div>
                 </td>
@@ -40,7 +53,11 @@ export const SummaryPage = () => {
                 <td>Curtailment</td>
                 <td>
                   <div className="flex items-center space-x-3">
-                    <TextField type="number" />
+                    <TextField 
+                      type="number" 
+                      value={ simulationState.useSelector((state) => state?.power_generation.Curtailment) } 
+                      readOnly
+                    />
                     <div>TWh</div>
                   </div>
                 </td>
