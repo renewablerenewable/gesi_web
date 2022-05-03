@@ -22,7 +22,10 @@ ChartJS.register(
 
 interface StackedMultiBarChartProps {
   title?: string;
+  labels?: string[];
   simulation?: object;
+  order?: string[],
+  reverse?: boolean;
 }
 
 // Need to apply some color scheme
@@ -38,11 +41,14 @@ const backgroundColor: string[] = [
 
 export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
   title,
-  simulation
+  labels,
+  simulation,
+  order,
+  reverse, 
 }) => {
   const [data, setData] = useState<ChartData<"bar", number[], unknown>>(
     {
-      labels: ['산업', '건물', '수송'],
+      labels: [''],
       datasets: [
         // {
         //   label: 'Dataset 1',
@@ -104,21 +110,53 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
     let newData: ChartData<"bar", number[], unknown> = JSON.parse(JSON.stringify(data));
     newData.datasets.length = 0;
 
-    Object.entries(simulation).forEach(([key, value], index) => {
-      if (key !== 'total') {
-        let stackData = [];
-        for (const _key in value) {
-          if (_key !== 'total')
-            stackData.push(value[_key]);
-        }
-        newData.datasets.push({
-          label: key,
-          data: stackData,
-          barThickness: 50,
-          backgroundColor: backgroundColor[index]
+    if (labels)
+      newData.labels = labels;
+    
+    if (reverse && order) {
+      let stackData: { [key: string]: number[] } = {};
+      for (const entry of order) {
+        type _keyType = keyof typeof simulation;
+        const _key = entry as _keyType;
+        
+        Object.entries(simulation[_key]).forEach(([key, value]) => {
+          if (key === 'total')
+            return;
+          
+          if (stackData.hasOwnProperty(key) === false)
+            stackData[key] = [];  
+          
+          stackData[key].push(value as number);
         })
       }
-    })
+
+      console.log(stackData)
+      Object.entries(stackData).forEach(([key, value], index) => {
+        console.log(key, value)
+        newData.datasets.push({
+          label: key,
+          data: value,
+          barThickness: 50,
+          backgroundColor: backgroundColor[index]
+        }); 
+      });
+    } else {
+      Object.entries(simulation).forEach(([key, value], index) => {
+        if (key !== 'total') {
+          let stackData = [];
+          for (const _key in value) {
+            if (_key !== 'total')
+              stackData.push(value[_key]);
+          }
+          newData.datasets.push({
+            label: key,
+            data: stackData,
+            barThickness: 50,
+            backgroundColor: backgroundColor[index]
+          })
+        }
+      });
+    }
 
     if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
       setData(newData);

@@ -100,20 +100,22 @@ export const PieChart: React.FC<PieChartProps> = ({
 
   // Simulation 없이도 PieChart를 사용하는 곳이 있다. 
   if (simulation === undefined && labels && amount) {
-    setData({
-      labels,
-      datasets: [
-        {
-          // label: 'Dataset 1',
-          backgroundColor: backgroundColor,
-          data: amount,
-          // barThickness: 20, // width of bar
-          // datalabels: { display: false },
-          // options: {},
-          borderWidth: 1,
-        },
-      ]
-    });
+    let newData: ChartData<"pie", number[], string> = JSON.parse(JSON.stringify(data));
+    newData.datasets = [
+      {
+        // label: 'Dataset 1',
+        backgroundColor: backgroundColor,
+        data: amount,
+        // barThickness: 20, // width of bar
+        // datalabels: { display: false },
+        // options: {},
+        borderWidth: 1,
+      },
+    ]
+
+    if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
+      setData(newData);
+    }
   }
 
   return (
