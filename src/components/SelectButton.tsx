@@ -1,16 +1,18 @@
 import React, { FC } from 'react';
 
 export interface SelectButtonProps {
-  text: string;
-  selected: boolean;
   className?: string;
+  disabled?: boolean;
+  selected: boolean;
+  text: string;
   onClick: () => void;
 }
 
 export const SelectButton: FC<SelectButtonProps> = ({
-  text,
-  selected,
   className,
+  disabled,
+  selected,
+  text,
   onClick,
 }) => {
   return (
@@ -20,7 +22,10 @@ export const SelectButton: FC<SelectButtonProps> = ({
         selected
           ? 'font-bold border-2 border-black text-black'
           : 'text-gray-400 border border-gray-200'
+      } ${
+        disabled ? 'text-gray-400 border border-gray-200 bg-gray-200' : ''
       }`}
+      disabled={disabled}
     >
       {text}
     </button>

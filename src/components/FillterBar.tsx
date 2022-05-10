@@ -32,7 +32,7 @@ export const FillterBar = () => {
       powerWt: powerWt
     });
   }
-  
+
   React.useEffect(() => {
     if (activated)
       runSimulation();
@@ -80,21 +80,25 @@ export const FillterBar = () => {
             <SelectButton
               text="35"
               selected={ndc === 0}
+              disabled={target}
               onClick={() => setNdc(0)}
             />
             <SelectButton
               text="40"
               selected={ndc === 1}
+              disabled={target}
               onClick={() => setNdc(1)}
             />
             <SelectButton
               text="45"
               selected={ndc === 2}
+              disabled={target}
               onClick={() => setNdc(2)}
             />
             <SelectButton
               text="50"
               selected={ndc === 3}
+              disabled={target}
               onClick={() => setNdc(3)}
             />
           </div>
@@ -110,21 +114,25 @@ export const FillterBar = () => {
               <SelectButton
                 text="10"
                 selected={transport === 0}
+                disabled={target}
                 onClick={() => setTransport(0)}
               />
               <SelectButton
                 text="15"
                 selected={transport === 1}
+                disabled={target}
                 onClick={() => setTransport(1)}
               />
               <SelectButton
                 text="20"
                 selected={transport === 2}
+                disabled={target}
                 onClick={() => setTransport(2)}
               />
               <SelectButton
                 text="25"
                 selected={transport === 3}
+                disabled={target}
                 onClick={() => setTransport(3)}
               />
             </div>
