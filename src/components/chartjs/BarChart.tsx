@@ -21,12 +21,13 @@ ChartJS.register(
 interface BarChartProps {
   title?: string;
   simulation?: object;
+  labelMap?: { [name: string]: string };
   dataOptions?: object;
 }
 
 const backgroundColor: string[] = ['#ED6E85', '#F1A354', '#F7CE6B', '#4598F8', '#7845F6']
 
-export const BarChart: React.FC<BarChartProps> = ({ title, simulation, dataOptions }) => {
+export const BarChart: React.FC<BarChartProps> = ({ title, labelMap, simulation, dataOptions }) => {
   const [data, setData] = useState<ChartData<"bar", number[], unknown>>({
     labels: [''],
     datasets: [
@@ -36,23 +37,32 @@ export const BarChart: React.FC<BarChartProps> = ({ title, simulation, dataOptio
     ],
   });
 
-  const options = {
+  let options = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'right' as const,
+        // position: 'right' as const,
+        display: false,
       },
       title: {
         display: true,
-        text: title,
+        text: title
       },
     },
+    scale: {
+      y: {
+        max: undefined,
+      }
+    }
   };
 
   if (simulation) {
     // Deep copy data and clear datasets
     let newData: ChartData<"bar", number[], unknown> = JSON.parse(JSON.stringify(data));
     newData.datasets.length = 0;
+
+    let newLabels: string[] = [];
+    let newDatasetData: number[] = [];
 
     // Default Values
     let barThickness = 50;
@@ -61,19 +71,31 @@ export const BarChart: React.FC<BarChartProps> = ({ title, simulation, dataOptio
       Object.entries(dataOptions).forEach(([key, value], index) => {
         if (key === 'barThickness')
           barThickness = value;
+        
+        if (key === 'max')
+          options.scale.y.max = value;
       });
     }
 
     Object.entries(simulation).forEach(([key, value], index) => {
       if (key !== 'total') {
-        newData.datasets.push({
-          label: key,
-          data: [value],
-          barThickness: barThickness,
-          backgroundColor: backgroundColor[index]
-        });
+        let label = key;
+
+        if (labelMap)
+          label = labelMap[key as string];
+
+        newLabels.push(label);
+        newDatasetData.push(value)
       }
     });
+
+    newData.labels = newLabels;
+    newData.datasets.push({
+      data: newDatasetData,
+      barThickness: barThickness,
+      borderWidth: 1,
+      backgroundColor: backgroundColor
+    })
     
     if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
       setData(newData);

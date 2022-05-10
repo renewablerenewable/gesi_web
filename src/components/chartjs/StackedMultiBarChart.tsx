@@ -24,6 +24,7 @@ interface StackedMultiBarChartProps {
   title?: string;
   labels?: string[];
   simulation?: object;
+  dataOptions?: object;
   order?: string[],
   reverse?: boolean;
 }
@@ -43,6 +44,7 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
   title,
   labels,
   simulation,
+  dataOptions,
   order,
   reverse, 
 }) => {
@@ -84,7 +86,7 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
     }
   );
   
-  const options = {
+  let options = {
     responsive: true,
     plugins: {
       legend: {
@@ -92,7 +94,7 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
       },
       title: {
         display: true,
-        text: title,
+        text: title
       },
     },
     scales: {
@@ -101,6 +103,7 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
       },
       y: {
         stacked: true,
+        max: undefined,
       },
     },
   };
@@ -112,6 +115,13 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
 
     if (labels)
       newData.labels = labels;
+
+    if (dataOptions) {
+      Object.entries(dataOptions).forEach(([key, value], index) => {        
+        if (key === 'max')
+          options.scales.y.max = value;
+      });
+    }
     
     if (reverse && order) {
       let stackData: { [key: string]: number[] } = {};
