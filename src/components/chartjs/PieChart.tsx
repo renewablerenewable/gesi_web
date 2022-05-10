@@ -84,12 +84,24 @@ export const PieChart: React.FC<PieChartProps> = ({
     let newLabels: string[] = [];
     let newDatasetData: number[] = [];
 
-    Object.entries(simulation).forEach(([key, value], index) => {
-      if (key !== 'total') {
-        newLabels.push(key)
-        newDatasetData.push(value)
+    if (labels) {
+      newLabels = labels;
+      
+      for (const label of newLabels) {
+        if (simulation.hasOwnProperty(label)) {
+          type _keyType = keyof typeof simulation;
+          const _key = label as _keyType;
+          newDatasetData.push(simulation[_key]);
+        }
       }
-    });
+    } else {
+      Object.entries(simulation).forEach(([key, value], index) => {
+        if (key !== 'total') {
+          newLabels.push(key);
+          newDatasetData.push(value);
+        }
+      });
+    }
 
     newData.labels = newLabels;
     newData.datasets.push({

@@ -20,14 +20,29 @@ ChartJS.register(
 
 interface BarChartProps {
   title?: string;
+  labels?: string[];
   simulation?: object;
   labelMap?: { [name: string]: string };
   dataOptions?: object;
 }
 
-const backgroundColor: string[] = ['#ED6E85', '#F1A354', '#F7CE6B', '#4598F8', '#7845F6']
+const backgroundColor: string[] = [
+  '#ED6E85',
+  '#F1A354',
+  '#F7CE6B',
+  '#6CBDBF',
+  '#4598F8',
+  '#7845F6',
+  '#C9CBCF',
+]
 
-export const BarChart: React.FC<BarChartProps> = ({ title, labelMap, simulation, dataOptions }) => {
+export const BarChart: React.FC<BarChartProps> = ({ 
+  title, 
+  labels,
+  simulation,
+  labelMap,  
+  dataOptions 
+}) => {
   const [data, setData] = useState<ChartData<"bar", number[], unknown>>({
     labels: [''],
     datasets: [
@@ -82,17 +97,35 @@ export const BarChart: React.FC<BarChartProps> = ({ title, labelMap, simulation,
       });
     }
 
-    Object.entries(simulation).forEach(([key, value], index) => {
-      if (key !== 'total') {
-        let label = key;
+    if (labels) {
+      newLabels = labels;
 
-        if (labelMap)
-          label = labelMap[key as string];
-
-        newLabels.push(label);
-        newDatasetData.push(value)
+      for (const label of labels) {
+        if (simulation.hasOwnProperty(label)) {
+          type _keyType = keyof typeof simulation;
+          const _key = label as _keyType;
+          newDatasetData.push(simulation[_key]);
+          
+          // let newLabel = label;
+          // if (labelMap)
+          //   newLabel = labelMap[label as string];
+          
+          // newLabels.push(newLabel)
+        }
       }
-    });
+    } else {
+      Object.entries(simulation).forEach(([key, value], index) => {
+        if (key !== 'total') {
+          let label = key;
+  
+          if (labelMap)
+            label = labelMap[key as string];
+  
+          newLabels.push(label);
+          newDatasetData.push(value)
+        }
+      });
+    }
 
     newData.labels = newLabels;
     newData.datasets.push({

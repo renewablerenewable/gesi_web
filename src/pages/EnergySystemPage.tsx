@@ -4,8 +4,14 @@ import { PieChart } from '../components/chartjs/PieChart';
 import { FillterBar } from '../components/FillterBar';
 import { simulationState } from '../plugins/ridge';
 
-const barChartOptions = {
-  barThickness: 20
+// Power Generation Chart Configuration
+const powerGenerationLabels = ['WT', 'PV', 'CHP', 'Fcell', 'NG_PP_new', 'NG_PP_existing', 'coal_PP', 'Nuke', 'Other']
+
+// Facility Configuration Chart Configuration
+const facilityConfigurationLabels = ['Wind_on', 'Wind_off', 'PV', 'CHP', 'Fcell', 'NG_PP_new', 'NG_PP_existing', 'coal_PP', 'Nuke']
+const facilityConfigurationChartOptions = {
+  // barThickness: 20
+  max: 500000
 }
 
 export const EnergySystemPage = () => {
@@ -17,12 +23,14 @@ export const EnergySystemPage = () => {
           <PieChart
             title="발전설비별 전력생산비중"
             simulation={ simulationState.useSelector((state) => state?.power_generation) }
+            labels={ powerGenerationLabels }
           />
           {/* </div> */}
           <BarChart 
             title="발전설비구성" 
             simulation={ simulationState.useSelector((state) => state?.facility_configuration) }
-            dataOptions={ barChartOptions }
+            dataOptions={ facilityConfigurationChartOptions }
+            labels={ facilityConfigurationLabels }
           />
         </div>
       </div>
