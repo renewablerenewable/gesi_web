@@ -16,6 +16,38 @@ export const FillterBar = () => {
   const [powerPv, setPowerPv] = useState<number>(scenario.powerPv);
   const [powerWt, setPowerWt] = useState<number>(scenario.powerWt);
 
+  const [activated, setActivated] = useState<boolean>(false);
+
+  function runSimulation() {
+    if (activated === false)
+      return;
+      
+    setScenario({
+      target: target,
+      ndc: ndc,
+      transport: transport,
+      building: building,
+      industry: industry,
+      powerPv: powerPv,
+      powerWt: powerWt
+    });
+  }
+  
+  React.useEffect(() => {
+    if (activated)
+      runSimulation();
+    else
+      return
+  }, [activated]);
+
+  React.useEffect(() => { runSimulation() }, [target]);
+  React.useEffect(() => { runSimulation() }, [ndc]);
+  React.useEffect(() => { runSimulation() }, [transport]);
+  React.useEffect(() => { runSimulation() }, [building]);
+  React.useEffect(() => { runSimulation() }, [industry]);
+  React.useEffect(() => { runSimulation() }, [powerPv]);
+  React.useEffect(() => { runSimulation() }, [powerWt]);
+
   return (
     <div className="border p-5 bg-white my-5 mx-4">
       <div className="grid xl:grid-cols-3 grid-cols-2 gap-x-10 gap-y-5">
@@ -218,15 +250,7 @@ export const FillterBar = () => {
             text="시나리오 생성	+" 
             className="filled-deep-blue px-8" 
             onClick={() => {
-              setScenario({
-                target: target,
-                ndc: ndc,
-                transport: transport,
-                building: building,
-                industry: industry,
-                powerPv: powerPv,
-                powerWt: powerWt
-              });
+              setActivated(true);
             }}
           />
         </div>
