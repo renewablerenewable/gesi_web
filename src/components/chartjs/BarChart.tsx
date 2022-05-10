@@ -65,12 +65,14 @@ export const BarChart: React.FC<BarChartProps> = ({ title, simulation, dataOptio
     }
 
     Object.entries(simulation).forEach(([key, value], index) => {
-      newData.datasets.push({
-        label: key,
-        data: [value],
-        barThickness: barThickness,
-        backgroundColor: backgroundColor[index]
-      });
+      if (key !== 'total') {
+        newData.datasets.push({
+          label: key,
+          data: [value],
+          barThickness: barThickness,
+          backgroundColor: backgroundColor[index]
+        });
+      }
     });
     
     if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
