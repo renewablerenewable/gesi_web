@@ -98,19 +98,18 @@ export const BarChart: React.FC<BarChartProps> = ({
     }
 
     if (labels) {
-      newLabels = labels;
-
       for (const label of labels) {
         if (simulation.hasOwnProperty(label)) {
           type _keyType = keyof typeof simulation;
           const _key = label as _keyType;
           newDatasetData.push(simulation[_key]);
           
-          // let newLabel = label;
-          // if (labelMap)
-          //   newLabel = labelMap[label as string];
+          let newLabel = label;
+
+          if (labelMap)
+            newLabel = labelMap[label as string];
           
-          // newLabels.push(newLabel)
+          newLabels.push(newLabel)
         }
       }
     } else {

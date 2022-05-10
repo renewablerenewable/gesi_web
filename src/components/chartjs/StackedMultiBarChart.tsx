@@ -24,9 +24,8 @@ interface StackedMultiBarChartProps {
   title?: string;
   labels?: string[];
   simulation?: object;
+  labelMap?: { [name: string]: string };
   dataOptions?: object;
-  order?: string[],
-  reverse?: boolean;
 }
 
 // Need to apply some color scheme
@@ -44,9 +43,8 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
   title,
   labels,
   simulation,
+  labelMap,
   dataOptions,
-  order,
-  reverse, 
 }) => {
   const [data, setData] = useState<ChartData<"bar", number[], unknown>>(
     {
@@ -118,8 +116,10 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
     let newData: ChartData<"bar", number[], unknown> = JSON.parse(JSON.stringify(data));
     newData.datasets.length = 0;
 
-    if (labels)
-      newData.labels = labels;
+    let newLabels: string[] = [];
+    // let newDatasetData: number[] = [];
+    // if (labels)
+    //   newData.labels = labels;
 
     if (dataOptions) {
       Object.entries(dataOptions).forEach(([key, value], index) => {        
@@ -127,45 +127,49 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
           options.scales.y.max = value;
       });
     }
-    
-    if (reverse && order) {
-      let stackData: { [key: string]: number[] } = {};
-      for (const entry of order) {
-        type _keyType = keyof typeof simulation;
-        const _key = entry as _keyType;
+
+    if (labels) {
+      for (const label of labels) {
+        let newLabel = label;
+
+        if (labelMap)
+          newLabel = labelMap[label as string];
         
-        Object.entries(simulation[_key]).forEach(([key, value]) => {
-          if (key === 'total')
-            return;
-          
-          if (stackData.hasOwnProperty(key) === false)
-            stackData[key] = [];  
-          
-          stackData[key].push(value as number);
-        })
+        newLabels.push(newLabel);
       }
 
-      console.log(stackData)
-      Object.entries(stackData).forEach(([key, value], index) => {
-        console.log(key, value)
-        newData.datasets.push({
-          label: key,
-          data: value,
-          barThickness: 50,
-          backgroundColor: backgroundColor[index]
-        }); 
+      Object.entries(simulation).forEach(([key, value], index) => {
+        if (key !== 'total') {
+          let newDatasetData:number[] = [];
+
+          for (const label of labels) {
+            if (value.hasOwnProperty(label)) {
+              newDatasetData.push(value[label]);
+            }
+          }
+          newData.datasets.push({
+            label: key,
+            data: newDatasetData,
+            barThickness: 50,
+            backgroundColor: backgroundColor[index]
+          });
+        }
       });
     } else {
       Object.entries(simulation).forEach(([key, value], index) => {
         if (key !== 'total') {
-          let stackData = [];
+          let newDatasetData:number[] = [];
+
           for (const _key in value) {
             if (_key !== 'total')
-              stackData.push(value[_key]);
+              newDatasetData.push(value[_key]);
+            
+            if (newLabels.includes(_key) === false)
+              newLabels.push(_key)
           }
           newData.datasets.push({
             label: key,
-            data: stackData,
+            data: newDatasetData,
             barThickness: 50,
             backgroundColor: backgroundColor[index]
           })
@@ -173,6 +177,8 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
       });
     }
 
+    newData.labels = newLabels;
+    
     if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
       setData(newData);
     }

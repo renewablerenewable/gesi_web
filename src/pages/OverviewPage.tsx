@@ -5,7 +5,12 @@ import { FillterBar } from '../components/FillterBar';
 import { simulationState } from '../plugins/ridge';
 
 // Energy Demand Graph Configuration
-const labels = ['산업', '건물', '수송']
+const energyDemandLabels = ['industry', 'building', 'transportation']
+const energyDemandLabelMap = {
+  'industry': '산업',
+  'building': '건물',
+  'transportation': '수송',
+}
 const energyDemandChartOptions = {
   max: 1400
 }
@@ -28,8 +33,9 @@ export const OverviewPage = () => {
         <div className="grid grid-cols-2 gap-10">
           <StackedMultiBarChart 
             title="최종에너지 소비" 
-            labels={ labels } 
+            labels={ energyDemandLabels } 
             simulation={ simulationState.useSelector((state) => state?.energy_demand) } 
+            labelMap={ energyDemandLabelMap }
             dataOptions={ energyDemandChartOptions }
           />
           <BarChart 
