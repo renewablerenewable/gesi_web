@@ -71,6 +71,11 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({ title, simulat
       title: {
         display: true,
         text: title,
+        font: {
+          size: 16,
+          weight: 'bold',
+          lineHeight: 2.0,
+        }
       },
     },
     scales: {

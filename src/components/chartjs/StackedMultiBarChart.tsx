@@ -94,7 +94,12 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
       },
       title: {
         display: true,
-        text: title
+        text: title,
+        font: {
+          size: 16,
+          weight: 'bold',
+          lineHeight: 2.0,
+        }
       },
     },
     scales: {

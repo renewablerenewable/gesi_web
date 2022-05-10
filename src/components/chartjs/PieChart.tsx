@@ -67,6 +67,11 @@ export const PieChart: React.FC<PieChartProps> = ({
       title: {
         display: true,
         text: title,
+        font: {
+          size: 16,
+          weight: 'bold',
+          lineHeight: 2.0,
+        }
       },
     },
   };

@@ -35,6 +35,11 @@ export const LineChart: React.FC<LineChartProps> = ({ title }) => {
       title: {
         display: true,
         text: title,
+        font: {
+          size: 16,
+          weight: 'bold',
+          lineHeight: 2.0,
+        }
       },
     },
   };
