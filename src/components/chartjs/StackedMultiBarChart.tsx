@@ -89,6 +89,9 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
     plugins: {
       legend: {
         position: 'right' as const,
+        labels: {
+          boxWidth: 12
+        }
       },
       title: {
         display: true,
@@ -117,9 +120,6 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
     newData.datasets.length = 0;
 
     let newLabels: string[] = [];
-    // let newDatasetData: number[] = [];
-    // if (labels)
-    //   newData.labels = labels;
 
     if (dataOptions) {
       Object.entries(dataOptions).forEach(([key, value], index) => {        

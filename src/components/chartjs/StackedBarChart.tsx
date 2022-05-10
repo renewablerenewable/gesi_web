@@ -84,6 +84,9 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
     plugins: {
       legend: {
         position: 'right' as const,
+        labels: {
+          boxWidth: 12
+        }
       },
       title: {
         display: true,
