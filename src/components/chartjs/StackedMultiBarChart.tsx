@@ -30,14 +30,19 @@ interface StackedMultiBarChartProps {
 
 // Need to apply some color scheme
 const backgroundColor: string[] = [
-  '#ED6E85',
-  '#F1A354',
-  '#F7CE6B',
-  '#6CBDBF',
-  '#4598F8',
-  '#7845F6',
-  '#C9CBCF',
-]
+  '#8dd3c7', 
+  '#ffffb3', 
+  '#bebada', 
+  '#fb8072', 
+  '#80b1d3', 
+  '#fdb462', 
+  '#b3de69', 
+  '#fccde5', 
+  '#d9d9d9', 
+  '#bc80bd', 
+  '#ccebc5', 
+  '#ffed6f'
+];
 
 export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
   title,
@@ -112,6 +117,7 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
         max: undefined,
       },
     },
+    maintainAspectRatio: undefined,
   };
 
   if (simulation) {
@@ -125,6 +131,9 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
       Object.entries(dataOptions).forEach(([key, value], index) => {        
         if (key === 'max')
           options.scales.y.max = value;
+        
+        if (key === 'maintainAspectRatio')
+          options.maintainAspectRatio = value;
       });
     }
 
