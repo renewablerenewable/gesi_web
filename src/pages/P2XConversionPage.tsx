@@ -3,17 +3,29 @@ import { LineChart } from '../components/chartjs/LineChart';
 import { StackedMultiBarChart } from '../components/chartjs/StackedMultiBarChart';
 import { BarChart } from '../components/chartjs/BarChart';
 import { FillterBar } from '../components/FillterBar';
-import { simulationState } from '../plugins/ridge';
+import { scenarioState, simulationState } from '../plugins/ridge';
 
-const stackedBarChartOptions = {
-  maintainAspectRatio: false,
+let stackedMultiBarChartLabels = ['home_2020', 'home_2030', 'commerce_2020', 'commerce_2030']
+const stackedMultiBarChartLabelMap = {
+  'home_2020': '가정 \'20',
+  'home_2030': '가정 \'30',
+  'home_2050': '가정 \'50',
+  'commerce_2020': '상업 \'20',
+  'commerce_2030': '상업 \'30',
+  'commerce_2050': '상업 \'50',
 }
+const stackedMultiBarChartOptions = {
+  maintainAspectRatio: false,
+  // barThickness: 20,
+}
+
 const barChartOptions = {
   indexAxis: 'y',
   maintainAspectRatio: false,
   barThickness: 20,
 }
-const upperLineChartLabels = ['heat_demand', 'dis_th']
+
+const upperLineChartLabels = ['P2H', 'heat_demand', 'dis_th', 'power_demend_without_p2h']
 const upperLineChartOptions = {
   stacked: true,
   xlabels: true,
@@ -36,15 +48,25 @@ const winterRange = {
 }
 
 export const P2XConversionPage = () => {
+  let home_target = 'home_2030'
+  let commerce_target = 'commerce_2030'
+  if (scenarioState.useSelector((state) => state.target) === true) {
+    home_target = 'home_2050'
+    commerce_target = 'commerce_2050'
+  }
+  stackedMultiBarChartLabels = ['home_2020', home_target, 'commerce_2020', commerce_target]
+
   return (
     <div>
       <div className="border p-5 bg-white my-5 mx-4">
-        <div className="grid grid-rows-2 grid-cols-4 gap-10">
+        <div className="grid grid-rows-2 grid-cols-4 gap-2">
           <div className="row-span-2">
             <StackedMultiBarChart 
               title="건물 부분 에너지 소비"
+              labels={ stackedMultiBarChartLabels }
               simulation={ simulationState.useSelector((state) => state?.P2H_consumption_change)  }
-              dataOptions={ stackedBarChartOptions }
+              labelMap= { stackedMultiBarChartLabelMap }
+              dataOptions={ stackedMultiBarChartOptions }
             />
           </div>
           <BarChart 
