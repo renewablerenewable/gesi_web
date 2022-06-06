@@ -1,34 +1,47 @@
 import React from 'react';
-// import { LineChart } from '../components/chartjs/LineChart';
+import { LineChart } from '../components/chartjs/LineChart';
+import { StackedMultiBarChart } from '../components/chartjs/StackedMultiBarChart';
 import { StackedMultiBarLineChart } from '../components/chartjs/StackedMultiBarLineChart';
-import { PieChart } from '../components/chartjs/PieChart';
+import { BarChart } from '../components/chartjs/BarChart';
 import { FillterBar } from '../components/FillterBar';
-import { simulationState } from '../plugins/ridge';
+import { scenarioState, simulationState } from '../plugins/ridge';
 
-const hydrogenDemandLabels = ['electricity_generation', 'transportation', 'industrial_material'];
-const hydrogenDemandLabelMap = {
-  'electricity_generation': '발전',
-  'transportation': '수송',
-  'industrial_material': '산업원료',
+let stackedMultiBarChartLabels = ['home_2020', 'home_2030', 'commerce_2020', 'commerce_2030']
+const stackedMultiBarChartLabelMap = {
+  'home_2020': '가정 \'20',
+  'home_2030': '가정 \'30',
+  'home_2050': '가정 \'50',
+  'commerce_2020': '상업 \'20',
+  'commerce_2030': '상업 \'30',
+  'commerce_2050': '상업 \'50',
 }
-const upperChartPositiveData = ['gas_demand', 'gas_production', 'gas_discharging', 'power_demand_without_p2h']
-const upperChartDataMap = { 
-  'gas_demand': 'gas_demand', 
-  'gas_production': 'gas_production', 
-  'gas_discharging': 'gas_discharging',
+const stackedMultiBarChartOptions = {
+  maintainAspectRatio: false,
+  // barThickness: 20,
+}
+const barChartOptions = {
+  indexAxis: 'y',
+  maintainAspectRatio: false,
+  barThickness: 20,
+}
+const upperChartPositiveData = ['heat_demand', 'P2H', 'dis_th', 'power_demand_without_p2h']
+const upperChartDataMap = {
+  'heat_demand':'heat_demand', 
+  'P2H': 'P2H',
+  'dis_th': '저장열 공급',
   'power_demand_without_p2h': '초과생산전력(P2H제외)'
 }
 const upperChartOptions = {
   xlabels: true,
   legend: 'top',
 }
-const lowerChartPositiveData = ['gas_charging']
-const lowerChartNegativeData = ['gas_discharging']
-const lowerChartLineData = ['gas_SOC']
+const lowerChartPositiveData = ['ch_th']
+const lowerChartNegativeData = ['dis_th']
+const lowerChartLineData = ['SOC_th']
 const lowerChartDataMap = {
-  'gas_charging': 'gas_charging',
-  'gas_discharging': 'gas_discharging',
-  'gas_SOC': 'gas_SOC',
+  'ch_th': "ch_th",
+  'dis_th': "dis_th",
+  'SOC_th': "SOC_th",
 }
 const lowerChartOptions = {
   xlabels: false,
@@ -40,24 +53,38 @@ const winterLabels = ['5378', '5379', '5380', '5381', '5382', '5383', '5384', '5
 const winterLabelMap = {'5378': '1', '5379': '2', '5380': '3', '5381': '4', '5382': '5', '5383': '6', '5384': '7', '5385': '8', '5386': '9', '5387': '10', '5388': '11', '5389': '12', '5390': '13', '5391': '14', '5392': '15', '5393': '16', '5394': '17', '5395': '18', '5396': '19', '5397': '20', '5398': '21', '5399': '22', '5400': '23', '5401': '24', '5402': '25', '5403': '26', '5404': '27', '5405': '28', '5406': '29', '5407': '30', '5408': '31', '5409': '32', '5410': '33', '5411': '34', '5412': '35', '5413': '36', '5414': '37', '5415': '38', '5416': '39', '5417': '40', '5418': '41', '5419': '42', '5420': '43', '5421': '44', '5422': '45', '5423': '46', '5424': '47', '5425': '48', '5426': '49', '5427': '50', '5428': '51', '5429': '52', '5430': '53', '5431': '54', '5432': '55', '5433': '56', '5434': '57', '5435': '58', '5436': '59', '5437': '60', '5438': '61', '5439': '62', '5440': '63', '5441': '64', '5442': '65', '5443': '66', '5444': '67', '5445': '68', '5446': '69', '5447': '70', '5448': '71', '5449': '72', '5450': '73'}
 
 
-export const P2GConversionPage = () => {
+export const P2HConversionPage = () => {
+  let home_target = 'home_2030'
+  let commerce_target = 'commerce_2030'
+  if (scenarioState.useSelector((state) => state.target) === true) {
+    home_target = 'home_2050'
+    commerce_target = 'commerce_2050'
+  }
+  stackedMultiBarChartLabels = ['home_2020', home_target, 'commerce_2020', commerce_target]
+
   return (
     <div>
-      <div className="border p-5 bg-white my-5 mx-4">
-        <div className="grid grid-rows-2 grid-cols-3 gap-2">
-          <div className='row-span-2'>
-            <PieChart
-              title="부문별 수소수요"
-              labels={ hydrogenDemandLabels }
-              simulation={ simulationState.useSelector((state) => state?.P2G_hydrogen_demand) }
-              labelMap={ hydrogenDemandLabelMap }
+      <div className="border p-5 bg-white my-5 mx-4"> 
+        <div className="grid grid-rows-2 grid-cols-4 gap-2">
+          <div className="row-span-2">
+            <StackedMultiBarChart 
+              title="건물 부분 에너지 소비"
+              labels={ stackedMultiBarChartLabels }
+              simulation={ simulationState.useSelector((state) => state?.P2H_consumption_change)  }
+              labelMap= { stackedMultiBarChartLabelMap }
+              dataOptions={ stackedMultiBarChartOptions }
             />
           </div>
+          <BarChart 
+            title="화석연료 열 생산" 
+            simulation={ simulationState.useSelector((state) => state?.P2H.F2H) }
+            dataOptions={ barChartOptions }
+          />
           <StackedMultiBarLineChart 
             title="여름"
             labels={ summerLabels }
             positiveBarData={ upperChartPositiveData }
-            simulation={ simulationState.useSelector((state) => state?.rep_g) }
+            simulation={ simulationState.useSelector((state) => state?.rep_h) }
             labelMap={ summerLabelMap }
             dataMap={ upperChartDataMap }
             dataOptions={ upperChartOptions }
@@ -66,17 +93,22 @@ export const P2GConversionPage = () => {
             title="겨울"
             labels={ winterLabels }
             positiveBarData={ upperChartPositiveData }
-            simulation={ simulationState.useSelector((state) => state?.rep_g) }
+            simulation={ simulationState.useSelector((state) => state?.rep_h) }
             labelMap={ winterLabelMap }
             dataMap={ upperChartDataMap }
             dataOptions={ upperChartOptions }
+          />
+          <BarChart 
+            title="초과전력 열 생산" 
+            simulation={ simulationState.useSelector((state) => state?.P2H.P2H) }
+            dataOptions={ barChartOptions }
           />
           <StackedMultiBarLineChart 
             labels={ summerLabels }
             positiveBarData={ lowerChartPositiveData }
             negativeBarData={ lowerChartNegativeData }
             lineData={ lowerChartLineData }
-            simulation={ simulationState.useSelector((state) => state?.rep_g) }
+            simulation={ simulationState.useSelector((state) => state?.rep_h) }
             labelMap={ summerLabelMap }
             dataMap={ lowerChartDataMap } 
             dataOptions={ lowerChartOptions }
@@ -86,7 +118,7 @@ export const P2GConversionPage = () => {
             positiveBarData={ lowerChartPositiveData }
             negativeBarData={ lowerChartNegativeData }
             lineData={ lowerChartLineData }
-            simulation={ simulationState.useSelector((state) => state?.rep_g) }
+            simulation={ simulationState.useSelector((state) => state?.rep_h) }
             labelMap={ winterLabelMap }
             dataMap={ lowerChartDataMap } 
             dataOptions={ lowerChartOptions }

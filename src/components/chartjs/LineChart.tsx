@@ -92,14 +92,13 @@ export const LineChart: React.FC<LineChartProps> = ({
     scales: {
       y: {
         stacked: undefined,
-      }
+      },
     }
   };
 
   if (simulation) {
     let newData: ChartData<"line", number[], unknown> = JSON.parse(JSON.stringify(data));
     newData.datasets.length = 0;
-
     let newLabels: string[] = [];
   
     let start = 0;
@@ -112,6 +111,18 @@ export const LineChart: React.FC<LineChartProps> = ({
     }
 
     newLabels = Array(end - start).fill('');
+
+    if (title === undefined) {
+      options.plugins.title = {
+        display: false,
+        text: undefined, 
+        font: {
+          size: 16,
+          weight: 'bold',
+          lineHeight: 2.0,
+        },
+      }
+    }
 
     if (dataOptions) {
       Object.entries(dataOptions).forEach(([key, value], index) => {

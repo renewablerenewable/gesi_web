@@ -3,13 +3,13 @@ import { LineChart } from '../components/chartjs/LineChart';
 import { FillterBar } from '../components/FillterBar';
 import { simulationState } from '../plugins/ridge'
 
-const upperLabels = ['el_demand', 'Nuke', 'coal_PP', 'NG_PP', 'PP', 'CHP', 'PV', 'WT', 'other']
+const upperLabels = ['Nuke', 'coal_PP', 'NG_PP', 'PP', 'CHP', 'PV', 'WT', 'other', 'battery_out', 'pumped_out']
 const upperChartOptions = {
   stacked: true,
   xlabels: true,
   legend: 'top',
 }
-const lowerLabels = ['EV', 'P2H', 'E_boiler', 'battery_in', 'pumped_in', 'electrolysis', 'curtail', 'battery_out', 'pumped_out']
+const lowerLabels = ['EV', 'P2H', 'E_boiler', 'battery_in', 'pumped_in', 'electrolysis', 'curtail']
 const lowerChartOption = {
   stacked: true,
   xlabels: false,
