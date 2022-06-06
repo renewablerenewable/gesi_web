@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { AuthRoute } from '../components/AuthRoute';
 import { LoginPage } from './LoginPage';
-import { HomePage } from './HomePage';
+// import { HomePage } from './HomePage';
 import { MyPage } from './MyPage';
 import { SignupPage } from './SignupPage';
 import { TopNavBar } from '../components/TopNavBar';
@@ -11,7 +11,7 @@ import { BottomBar } from '../components/BottomBar';
 import { EnergySystemPage } from './EnergySystemPage';
 import { P2XPage } from './P2XPage';
 import { P2XBalancingPage } from './P2XBalancingPage';
-import { P2XConversionPage } from './P2XConversionPage';
+import { P2HConversionPage } from './P2HConversionPage';
 import { P2GConversionPage } from './P2GConversionPage';
 import { SummaryPage } from './SummaryPage';
 import { NDCPage } from './info/NDCPage';
@@ -34,7 +34,7 @@ export const Router = () => {
             <Route path="/info/ndc" component={NDCPage} />
             <Route path="/summary" component={SummaryPage} />
             <Route path="/conversion/p2g" component={P2GConversionPage} />
-            <Route path="/conversion/p2x" component={P2XConversionPage} />
+            <Route path="/conversion/p2h" component={P2HConversionPage} />
             <Route path="/balancing/p2x" component={P2XBalancingPage} />
             <Route path="/p2x" component={P2XPage} />
             <Route path="/energy" component={EnergySystemPage} />

@@ -10,7 +10,7 @@ const tab = [
   { id: 2, text: 'Energy system', path: '/energy' },
   { id: 3, text: 'P2X', path: '/p2x' },
   { id: 4, text: 'P2X-Balancing', path: '/balancing/p2x' },
-  { id: 5, text: 'P2X-Conversion', path: '/conversion/p2x' },
+  { id: 5, text: 'P2H-Conversion', path: '/conversion/p2h' },
   { id: 6, text: 'P2G-Conversion', path: '/conversion/p2g' },
   { id: 7, text: 'Summary', path: '/summary' },
 ];
