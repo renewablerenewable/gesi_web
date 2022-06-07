@@ -65,7 +65,7 @@ export const P2HConversionPage = () => {
   return (
     <div>
       <div className="border p-5 bg-white my-5 mx-4"> 
-        <div className="grid grid-rows-2 grid-cols-4 gap-2">
+        <div className="grid grid-rows-2 grid-flow-col grid-cols-4 gap-2">
           <div className="row-span-2">
             <StackedMultiBarChart 
               title="건물 부분 에너지 소비"
@@ -80,6 +80,11 @@ export const P2HConversionPage = () => {
             simulation={ simulationState.useSelector((state) => state?.P2H.F2H) }
             dataOptions={ barChartOptions }
           />
+          <BarChart 
+            title="초과전력 열 생산" 
+            simulation={ simulationState.useSelector((state) => state?.P2H.P2H) }
+            dataOptions={ barChartOptions }
+          />
           <StackedMultiBarLineChart 
             title="여름"
             labels={ summerLabels }
@@ -90,20 +95,6 @@ export const P2HConversionPage = () => {
             dataOptions={ upperChartOptions }
           />
           <StackedMultiBarLineChart 
-            title="겨울"
-            labels={ winterLabels }
-            positiveBarData={ upperChartPositiveData }
-            simulation={ simulationState.useSelector((state) => state?.rep_h) }
-            labelMap={ winterLabelMap }
-            dataMap={ upperChartDataMap }
-            dataOptions={ upperChartOptions }
-          />
-          <BarChart 
-            title="초과전력 열 생산" 
-            simulation={ simulationState.useSelector((state) => state?.P2H.P2H) }
-            dataOptions={ barChartOptions }
-          />
-          <StackedMultiBarLineChart 
             labels={ summerLabels }
             positiveBarData={ lowerChartPositiveData }
             negativeBarData={ lowerChartNegativeData }
@@ -112,6 +103,15 @@ export const P2HConversionPage = () => {
             labelMap={ summerLabelMap }
             dataMap={ lowerChartDataMap } 
             dataOptions={ lowerChartOptions }
+          />
+          <StackedMultiBarLineChart 
+            title="겨울"
+            labels={ winterLabels }
+            positiveBarData={ upperChartPositiveData }
+            simulation={ simulationState.useSelector((state) => state?.rep_h) }
+            labelMap={ winterLabelMap }
+            dataMap={ upperChartDataMap }
+            dataOptions={ upperChartOptions }
           />
           <StackedMultiBarLineChart 
             labels={ winterLabels }
