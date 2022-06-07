@@ -1,6 +1,7 @@
 import React from 'react';
 import { BarChart } from '../components/chartjs/BarChart';
 import { StackedBarChart } from '../components/chartjs/StackedBarChart';
+import { StackedMultiBarLineChart } from '../components/chartjs/StackedMultiBarLineChart';
 import { FillterBar } from '../components/FillterBar';
 import { simulationState } from '../plugins/ridge';
 
@@ -10,7 +11,20 @@ const P2XFacilityConfigurationChartOptions = {
 }
 
 const P2XEnergyBalancingLabels = ['Electricity_demand', 'Other', 'Nuke', 'coal_PP', 'NG_PP_existing', 'NG_PP_new', 'Fcell', 'CHP', 'PV', 'WT']
-
+const P2XEnergyBalancingPositiveData = ['Other', 'Nuke', 'coal_PP', 'NG_PP_existing', 'NG_PP_new', 'Fcell', 'CHP', 'PV', 'WT']
+const P2XEnergyBalancingLineData = ['Electricity_demand']
+const P2XEnergyBalancingDataMap = {
+  'Electricity_demand': 'Electricity_demand', 
+  'Other': 'Other', 
+  'Nuke': 'Nuke', 
+  'coal_PP': 'coal_PP', 
+  'NG_PP_existing': 'NG_PP_existing', 
+  'NG_PP_new': 'NG_PP_new', 
+  'Fcell': 'Fcell', 
+  'CHP': 'CHP', 
+  'PV': 'PV', 
+  'WT': 'WT'
+}
 const P2XExcessProductionUsageLabels = ['Curtailment', 'P2H', 'EV', 'Electric_boiler', 'Electrolysis']
 
 export const P2XPage = () => {
@@ -26,8 +40,10 @@ export const P2XPage = () => {
           />
           <StackedBarChart 
             title="에너지 밸런싱" 
-            labels={ P2XEnergyBalancingLabels }
+            labels={ P2XEnergyBalancingPositiveData }
+            lineLabels={ P2XEnergyBalancingLineData }
             simulation={ simulationState.useSelector((state) => state?.power_generation) }
+            labelMap={ P2XEnergyBalancingDataMap }
           />
           <StackedBarChart 
             title="초과 생산량 활용" 
