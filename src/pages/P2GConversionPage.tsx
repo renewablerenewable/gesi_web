@@ -7,16 +7,16 @@ import { simulationState } from '../plugins/ridge';
 
 const hydrogenDemandLabels = ['electricity_generation', 'transportation', 'industrial_material'];
 const hydrogenDemandLabelMap = {
-  'electricity_generation': '발전',
-  'transportation': '수송',
+  'electricity_generation': '발전연료',
+  'transportation': '수송연료',
   'industrial_material': '산업원료',
 }
 const upperChartPositiveData = ['gas_demand', 'gas_production', 'gas_discharging', 'power_demand_without_p2h']
 const upperChartDataMap = { 
-  'gas_demand': 'gas_demand', 
-  'gas_production': 'gas_production', 
-  'gas_discharging': 'gas_discharging',
-  'power_demand_without_p2h': '초과생산전력(P2H제외)'
+  'gas_demand': '수소 수요', 
+  'gas_production': '수소 생산', 
+  'gas_discharging': '저장 수소 공급',
+  'power_demand_without_p2h': '초과생산전력(P2G제외)'
 }
 const upperChartOptions = {
   xlabels: true,
@@ -26,9 +26,9 @@ const lowerChartPositiveData = ['gas_charging']
 const lowerChartNegativeData = ['gas_discharging']
 const lowerChartLineData = ['gas_SOC']
 const lowerChartDataMap = {
-  'gas_charging': 'gas_charging',
-  'gas_discharging': 'gas_discharging',
-  'gas_SOC': 'gas_SOC',
+  'gas_charging': '생산수소 저장',
+  'gas_discharging': '저장수소 공급',
+  'gas_SOC': '수소 저장량',
 }
 const lowerChartOptions = {
   xlabels: false,
