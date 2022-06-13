@@ -4,12 +4,34 @@ import { FillterBar } from '../components/FillterBar';
 import { simulationState } from '../plugins/ridge'
 
 const upperLabels = ['Nuke', 'coal_PP', 'NG_PP', 'PP', 'CHP', 'PV', 'WT', 'other', 'battery_out', 'pumped_out']
+const upperLabelMap = {
+  'Nuke' : '원자력',
+  'coal_PP' : '석탄화력',
+  'NG_PP' : 'LNG화력', 
+  'PP' : '복합화력',
+  'CHP' : '열병합',
+  'PV' :'태양광',
+  'WT' : '풍력',
+  'other' : '기타',
+  'battery_out' : '배터리 전력방출',
+  'pumped_out' : '양수발전 전력생산'
+}
 const upperChartOptions = {
   stacked: true,
   xlabels: true,
   legend: 'top',
 }
 const lowerLabels = ['EV', 'P2H', 'E_boiler', 'battery_in', 'pumped_in', 'electrolysis', 'curtail']
+const lowerLabelMap = {
+  'EV' : '전기차 충전',
+  'P2H' : 'P2H',
+  'E_boiler' : '전기보일러',
+  'battery_in' : '배터리 전력충전', 
+  'pumped_in' : '양수발전 전력저장',
+  'electrolysis' : '수전해설비',
+  'curtail' : '출력제한'
+}
+
 const lowerChartOption = {
   stacked: true,
   xlabels: false,
