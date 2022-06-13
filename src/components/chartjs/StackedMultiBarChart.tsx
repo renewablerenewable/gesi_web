@@ -98,7 +98,7 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
               label += ': ';
             }
             if (context.parsed.y !== null) {
-              label += context.parsed.y.toFixed(1);
+              label += Number(context.parsed.y.toFixed(1)).toLocaleString();
             }
             return label;
           },
