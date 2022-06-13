@@ -39,9 +39,9 @@ const lowerChartPositiveData = ['ch_th']
 const lowerChartNegativeData = ['dis_th']
 const lowerChartLineData = ['SOC_th']
 const lowerChartDataMap = {
-  'ch_th': "ch_th",
-  'dis_th': "dis_th",
-  'SOC_th': "SOC_th",
+  'ch_th': "열 저장",
+  'dis_th': "열 방출",
+  'SOC_th': "열 저장량",
 }
 const lowerChartOptions = {
   xlabels: false,
