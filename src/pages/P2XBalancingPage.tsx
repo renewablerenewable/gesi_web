@@ -57,6 +57,7 @@ export const P2XBalancingPage = () => {
           <LineChart 
             title="여름" 
             labels={ upperLabels }
+            labelMap={ upperLabelMap }
             simulation={ simulationState.useSelector((state) => state?.rep) } 
             dataOptions={ upperChartOptions } 
             range={ summerRange }
@@ -64,6 +65,7 @@ export const P2XBalancingPage = () => {
           <LineChart 
             title="겨울" 
             labels={ upperLabels }
+            labelMap={ upperLabelMap }
             simulation={ simulationState.useSelector((state) => state?.rep) } 
             dataOptions={ upperChartOptions } 
             range={ winterRange }
@@ -72,12 +74,14 @@ export const P2XBalancingPage = () => {
         <div className="grid grid-cols-2 gap-10">
           <LineChart 
             labels={ lowerLabels }
+            labelMap={ lowerLabelMap }
             simulation={ simulationState.useSelector((state) => state?.rep) } 
             dataOptions={ lowerChartOption } 
             range={ winterRange }
           />
           <LineChart 
             labels={ lowerLabels }
+            labelMap={ lowerLabelMap }
             simulation={ simulationState.useSelector((state) => state?.rep) } 
             dataOptions={ lowerChartOption } 
             range={ summerRange }

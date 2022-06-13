@@ -27,6 +27,7 @@ ChartJS.register(
 interface LineChartProps {
   title?: string;
   labels?: string[];
+  labelMap?: { [name: string]: string };
   simulation?: object;
   dataOptions?: object;
   range?: {[name: string]: number};
@@ -50,6 +51,7 @@ const backgroundColor: string[] = [
 export const LineChart: React.FC<LineChartProps> = ({ 
   title, 
   labels,
+  labelMap,
   simulation,
   dataOptions,
   range
@@ -173,9 +175,13 @@ export const LineChart: React.FC<LineChartProps> = ({
             else
               newDatasetData.push(value[i.toString()]);
           }
+
+          let newLabel = label;
+
+          if  (labelMap) newLabel = labelMap[label as string];
           
           newData.datasets.push({
-            label: label,
+            label: newLabel,
             data: newDatasetData,
             borderColor: backgroundColor[index],
             backgroundColor: backgroundColor[index],
