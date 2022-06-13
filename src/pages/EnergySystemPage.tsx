@@ -67,6 +67,7 @@ export const EnergySystemPage = () => {
               (state) => state?.power_generation
             )}
             labels={powerGenerationLabels}
+            labelMap={powerGenerationLabelMap}
             className="w-1/2"
           />
           <BarChart
@@ -76,6 +77,7 @@ export const EnergySystemPage = () => {
             )}
             dataOptions={facilityConfigurationChartOptions}
             labels={facilityConfigurationLabels}
+            labelMap={facilityConfigurationLabelMap}
           />
         </div>
       </div>
