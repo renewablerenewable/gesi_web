@@ -24,9 +24,9 @@ const barChartOptions = {
   maintainAspectRatio: false,
   barThickness: 20,
 }
-const upperChartPositiveData = ['heat_demand', 'P2H', 'dis_th', 'power_demand_without_p2h']
+const upperChartPositiveData = ['P2H', 'dis_th', 'power_demand_without_p2h']
 const upperChartDataMap = {
-  'heat_demand':'heat_demand', 
+  // 'heat_demand':'heat_demand', 
   'P2H': 'P2H',
   'dis_th': '저장열 공급',
   'power_demand_without_p2h': '초과생산전력(P2H제외)'
@@ -35,6 +35,7 @@ const upperChartOptions = {
   xlabels: true,
   legend: 'top',
 }
+const upperChartLineData = ['heat_demand']
 const lowerChartPositiveData = ['ch_th']
 const lowerChartNegativeData = ['dis_th']
 const lowerChartLineData = ['SOC_th']
@@ -89,6 +90,7 @@ export const P2HConversionPage = () => {
             title="여름"
             labels={ summerLabels }
             positiveBarData={ upperChartPositiveData }
+            lineData={ upperChartLineData }
             simulation={ simulationState.useSelector((state) => state?.rep_h) }
             labelMap={ summerLabelMap }
             dataMap={ upperChartDataMap }
@@ -108,6 +110,7 @@ export const P2HConversionPage = () => {
             title="겨울"
             labels={ winterLabels }
             positiveBarData={ upperChartPositiveData }
+            lineData={ upperChartLineData }
             simulation={ simulationState.useSelector((state) => state?.rep_h) }
             labelMap={ winterLabelMap }
             dataMap={ upperChartDataMap }
