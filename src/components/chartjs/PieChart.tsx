@@ -30,18 +30,18 @@ interface PieChartProps {
 }
 
 const backgroundColor: string[] = [
-  '#8dd3c7', 
-  '#ffffb3', 
-  '#bebada', 
-  '#fb8072', 
-  '#80b1d3', 
-  '#fdb462', 
-  '#b3de69', 
-  '#fccde5', 
-  '#d9d9d9', 
-  '#bc80bd', 
-  '#ccebc5', 
-  '#ffed6f'
+  '#8dd3c7',
+  '#ffffb3',
+  '#bebada',
+  '#fb8072',
+  '#80b1d3',
+  '#fdb462',
+  '#b3de69',
+  '#fccde5',
+  '#d9d9d9',
+  '#bc80bd',
+  '#ccebc5',
+  '#ffed6f',
 ];
 
 export const PieChart: React.FC<PieChartProps> = ({
@@ -52,12 +52,12 @@ export const PieChart: React.FC<PieChartProps> = ({
   labelMap,
   className,
 }) => {
-  const [data, setData] = useState<ChartData<"pie", number[], string>>({
+  const [data, setData] = useState<ChartData<'pie', number[], string>>({
     labels: [],
     datasets: [
       {
-        data: [1]
-      }
+        data: [1],
+      },
       // {
       //   // label: 'Dataset 1',
       //   backgroundColor: backgroundColor,
@@ -70,11 +70,25 @@ export const PieChart: React.FC<PieChartProps> = ({
   const options = {
     responsive: true,
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            if (context.parsed.y !== null) {
+              label += context.parsed.y.toFixed(1);
+            }
+            return label;
+          },
+        },
+      },
       legend: {
         position: 'right' as const,
         labels: {
-          boxWidth: 12
-        }
+          boxWidth: 12,
+        },
       },
       title: {
         display: true,
@@ -83,14 +97,16 @@ export const PieChart: React.FC<PieChartProps> = ({
           size: 16,
           weight: 'bold',
           lineHeight: 2.0,
-        }
+        },
       },
     },
   };
 
   if (simulation) {
     // Deep copy data and clear datasets
-    let newData: ChartData<"pie", number[], string> = JSON.parse(JSON.stringify(data));
+    let newData: ChartData<'pie', number[], string> = JSON.parse(
+      JSON.stringify(data)
+    );
     newData.datasets.length = 0;
 
     let newLabels: string[] = [];
@@ -98,7 +114,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 
     if (labels) {
       // newLabels = labels;
-      
+
       for (const label of labels) {
         if (simulation.hasOwnProperty(label)) {
           type _keyType = keyof typeof simulation;
@@ -106,10 +122,9 @@ export const PieChart: React.FC<PieChartProps> = ({
           newDatasetData.push(simulation[_key]);
 
           let newLabel = label;
-          
-          if (labelMap)
-            newLabel = labelMap[label as string];
-          
+
+          if (labelMap) newLabel = labelMap[label as string];
+
           newLabels.push(newLabel);
         }
       }
@@ -118,8 +133,7 @@ export const PieChart: React.FC<PieChartProps> = ({
         if (key !== 'total') {
           let label = key;
 
-          if (labelMap) 
-            label = labelMap[key as string];
+          if (labelMap) label = labelMap[key as string];
 
           newLabels.push(label);
           newDatasetData.push(value);
@@ -132,16 +146,18 @@ export const PieChart: React.FC<PieChartProps> = ({
       backgroundColor: backgroundColor,
       data: newDatasetData,
       borderWidth: 1,
-    })
-    
+    });
+
     if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
       setData(newData);
     }
   }
 
-  // Simulation 없이도 PieChart를 사용하는 곳이 있다. 
+  // Simulation 없이도 PieChart를 사용하는 곳이 있다.
   if (simulation === undefined && labels && amount) {
-    let newData: ChartData<"pie", number[], string> = JSON.parse(JSON.stringify(data));
+    let newData: ChartData<'pie', number[], string> = JSON.parse(
+      JSON.stringify(data)
+    );
     newData.datasets = [
       {
         // label: 'Dataset 1',
@@ -152,7 +168,7 @@ export const PieChart: React.FC<PieChartProps> = ({
         // options: {},
         borderWidth: 1,
       },
-    ]
+    ];
 
     if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
       setData(newData);
@@ -161,10 +177,7 @@ export const PieChart: React.FC<PieChartProps> = ({
 
   return (
     <div className={`w-full mx-auto ${className}`}>
-      <Pie
-        data={data}
-        options={options}
-      />
+      <Pie data={data} options={options} />
     </div>
   );
 };

@@ -66,6 +66,20 @@ export const LineChart: React.FC<LineChartProps> = ({
   let options = {
     responsive: true,
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            if (context.parsed.y !== null) {
+              label += context.parsed.y.toFixed(1);
+            }
+            return label;
+          },
+        },
+      },
       legend: {
         position: undefined
       },

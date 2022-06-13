@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Chart as ChartJS,
@@ -35,23 +34,25 @@ interface StackedMultiBarLineChartProps {
 
 // Need to apply some color scheme
 const backgroundColor: string[] = [
-  '#8dd3c7', 
-  '#ffffb3', 
-  '#bebada', 
-  '#fb8072', 
-  '#80b1d3', 
-  '#fdb462', 
-  '#b3de69', 
-  '#fccde5', 
-  '#d9d9d9', 
-  '#bc80bd', 
-  '#ccebc5', 
-  '#ffed6f'
+  '#8dd3c7',
+  '#ffffb3',
+  '#bebada',
+  '#fb8072',
+  '#80b1d3',
+  '#fdb462',
+  '#b3de69',
+  '#fccde5',
+  '#d9d9d9',
+  '#bc80bd',
+  '#ccebc5',
+  '#ffed6f',
 ];
 
-export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> = ({
+export const StackedMultiBarLineChart: React.FC<
+  StackedMultiBarLineChartProps
+> = ({
   title,
-  labels ,
+  labels,
   lineData,
   positiveBarData,
   negativeBarData,
@@ -60,21 +61,33 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
   dataMap,
   dataOptions,
 }) => {
-  const [data, setData] = useState<ChartData<"bar", number[], unknown>>(
-    {
-      labels: [''],
-      datasets: [],
-    }
-  );
-  
+  const [data, setData] = useState<ChartData<'bar', number[], unknown>>({
+    labels: [''],
+    datasets: [],
+  });
+
   let options = {
     responsive: true,
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            if (context.parsed.y !== null) {
+              label += context.parsed.y.toFixed(1);
+            }
+            return label;
+          },
+        },
+      },
       legend: {
         position: 'right' as const,
         labels: {
-          boxWidth: 12
-        }
+          boxWidth: 12,
+        },
       },
       title: {
         display: true,
@@ -83,7 +96,7 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
           size: 16,
           weight: 'bold',
           lineHeight: 2.0,
-        }
+        },
       },
     },
     scales: {
@@ -94,7 +107,7 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
           drawBorder: true,
           drawTicks: false,
           tickWidth: 0,
-        }
+        },
       },
       y: {
         stacked: true,
@@ -103,8 +116,8 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
           display: true,
           drawBorder: true,
           drawTicks: false,
-          tickWidth: 0
-        }
+          tickWidth: 0,
+        },
       },
     },
     maintainAspectRatio: undefined,
@@ -121,25 +134,22 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
     if (title === undefined) {
       options.plugins.title = {
         display: false,
-        text: undefined, 
+        text: undefined,
         font: {
           size: 16,
           weight: 'bold',
           lineHeight: 2.0,
         },
-      }
+      };
     }
 
     if (dataOptions) {
-      Object.entries(dataOptions).forEach(([key, value], index) => {        
-        if (key === 'max')
-          options.scales.y.max = value;
-        
-        if (key === 'maintainAspectRatio')
-          options.maintainAspectRatio = value;
-        
-        if (key === 'legend')
-          options.plugins.legend.position = value;
+      Object.entries(dataOptions).forEach(([key, value], index) => {
+        if (key === 'max') options.scales.y.max = value;
+
+        if (key === 'maintainAspectRatio') options.maintainAspectRatio = value;
+
+        if (key === 'legend') options.plugins.legend.position = value;
 
         if (key === 'xlabels' && value === true && labels) {
           if (labelMap) {
@@ -162,7 +172,7 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
     // if data
     if ((lineData || positiveBarData || negativeBarData) && labels) {
       // for (const label of lineData) {
-      //   let newLabel = label;     
+      //   let newLabel = label;
       //   newLabels.push(newLabel);
       // }
 
@@ -173,21 +183,21 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
             const _key = data as _keyType;
             const value = simulation[_key];
             let newDatasetData: number[] = [];
-            
+
             for (const label of labels) {
               newDatasetData.push(value[label]);
             }
 
             let newLabel = data;
             if (dataMap && dataMap.hasOwnProperty(data))
-              newLabel = dataMap[data as string]; 
-            
+              newLabel = dataMap[data as string];
+
             newData.datasets.push({
               type: 'bar',
               label: newLabel,
               data: newDatasetData,
               barThickness: 1,
-              backgroundColor: backgroundColor[totalIndex]
+              backgroundColor: backgroundColor[totalIndex],
             });
             totalIndex += 1;
           }
@@ -202,19 +212,19 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
             let newDatasetData: number[] = [];
 
             for (const label of labels) {
-              newDatasetData.push(value[label] * (-1));
+              newDatasetData.push(value[label] * -1);
             }
 
             let newLabel = data;
             if (dataMap && dataMap.hasOwnProperty(data))
-              newLabel = dataMap[data as string]; 
+              newLabel = dataMap[data as string];
 
             newData.datasets.push({
               type: 'bar',
               label: newLabel,
               data: newDatasetData,
               barThickness: 1,
-              backgroundColor: backgroundColor[totalIndex]
+              backgroundColor: backgroundColor[totalIndex],
             });
             totalIndex += 1;
           }
@@ -234,7 +244,7 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
 
             let newLabel = data;
             if (dataMap && dataMap.hasOwnProperty(data))
-              newLabel = dataMap[data as string]; 
+              newLabel = dataMap[data as string];
 
             newData.datasets.push({
               type: 'line',
@@ -251,27 +261,25 @@ export const StackedMultiBarLineChart: React.FC<StackedMultiBarLineChartProps> =
     } else {
       Object.entries(simulation).forEach(([key, value], index) => {
         if (key !== 'total') {
-          let newDatasetData:number[] = [];
+          let newDatasetData: number[] = [];
 
           for (const _key in value) {
-            if (_key !== 'total')
-              newDatasetData.push(value[_key]);
-            
-            if (newLabels.includes(_key) === false)
-              newLabels.push(_key)
+            if (_key !== 'total') newDatasetData.push(value[_key]);
+
+            if (newLabels.includes(_key) === false) newLabels.push(_key);
           }
           newData.datasets.push({
             label: key,
             data: newDatasetData,
             barThickness: 50,
-            backgroundColor: backgroundColor[index]
-          })
+            backgroundColor: backgroundColor[index],
+          });
         }
       });
     }
 
     newData.labels = newLabels;
-    
+
     if (JSON.stringify(newData.datasets) !== JSON.stringify(data.datasets)) {
       setData(newData);
     }

@@ -29,28 +29,28 @@ interface StackedBarChartProps {
 }
 
 const backgroundColor: string[] = [
-  '#8dd3c7', 
-  '#ffffb3', 
-  '#bebada', 
-  '#fb8072', 
-  '#80b1d3', 
-  '#fdb462', 
-  '#b3de69', 
-  '#fccde5', 
-  '#d9d9d9', 
-  '#bc80bd', 
-  '#ccebc5', 
-  '#ffed6f'
+  '#8dd3c7',
+  '#ffffb3',
+  '#bebada',
+  '#fb8072',
+  '#80b1d3',
+  '#fdb462',
+  '#b3de69',
+  '#fccde5',
+  '#d9d9d9',
+  '#bc80bd',
+  '#ccebc5',
+  '#ffed6f',
 ];
 
-export const StackedBarChart: React.FC<StackedBarChartProps> = ({ 
-  title, 
+export const StackedBarChart: React.FC<StackedBarChartProps> = ({
+  title,
   labels,
   lineLabels,
   simulation,
   labelMap,
 }) => {
-  const [data, setData] = useState<ChartData<"bar", number[], unknown>>({
+  const [data, setData] = useState<ChartData<'bar', number[], unknown>>({
     labels: [''],
     datasets: [
       // {
@@ -89,11 +89,25 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
   const options = {
     responsive: true,
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            if (context.parsed.y !== null) {
+              label += context.parsed.y.toFixed(1);
+            }
+            return label;
+          },
+        },
+      },
       legend: {
         position: 'right' as const,
         labels: {
-          boxWidth: 12
-        }
+          boxWidth: 12,
+        },
       },
       title: {
         display: true,
@@ -102,7 +116,7 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
           size: 16,
           weight: 'bold',
           lineHeight: 2.0,
-        }
+        },
       },
     },
     scales: {
@@ -127,15 +141,14 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
 
           let newLabel = label;
 
-          if (labelMap)
-            newLabel = labelMap[label as string];
+          if (labelMap) newLabel = labelMap[label as string];
 
           newData.datasets.push({
             type: 'bar',
             label: newLabel,
             data: [simulation[_key]],
             barThickness: 50,
-            backgroundColor: backgroundColor[idx]
+            backgroundColor: backgroundColor[idx],
           });
         }
       }
@@ -148,15 +161,14 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
 
           let newLabel = label;
 
-          if (labelMap)
-            newLabel = labelMap[label as string];
+          if (labelMap) newLabel = labelMap[label as string];
 
           newData.datasets.push({
             type: 'line',
             label: newLabel,
             data: [simulation[_key]],
             // barThickness: 50,
-            backgroundColor: backgroundColor[10]
+            backgroundColor: backgroundColor[10],
           });
         }
       }
@@ -167,7 +179,6 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
       setData(newData);
     }
   }
-  
 
   return (
     <div className="w-full">
