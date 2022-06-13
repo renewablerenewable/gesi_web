@@ -27,22 +27,25 @@ export const TransportPage = () => {
                 <div className="font-semibold">WHY</div>
                 <div className="">
                   전기차는 기존 내연기관차에 비해 다양한 장점을 갖는다. 우선
-                  전기를 사용하여 작동함으로써 대기오염물질(CO2, 미세먼지 등)의
-                  배출이 발생하지 않는다. 또한, 일반적으로 에너지 효율이 훨씬
-                  높아 집약적 에너지 소비를 가능하게 한다. 이외에도 신재생에너지
-                  및 신규 기술과의 연계를 통해 전력망의 안정성 향상 등
-                  사회전반에 미치는 영향이 크다.
+                  전기를 사용하여 작동함으로써 운행 중 대기오염물질(CO2, 미세먼지 등)이
+                  발생하지 않는다. 또한, 내연기관 및 수소차 대비 에너지 효율이 상대적으로
+                  높아 에너지 소비량이 적다는 장점이 있다. 이외에도 신재생에너지 및 신규 
+                  기술과의 연계를 통해 전력망의 안정성 향상 등 사회전반에 미치는 영향이 크다.
                 </div>
               </div>
               <div className="space-y-3 col-span-2">
                 <div className="font-semibold">Check Point!</div>
                 <div className="">
-                  전기차는 기존 내연기관차에 비해 다양한 장점을 갖는다. 우선
-                  전기를 사용하여 작동함으로써 대기오염물질(CO2, 미세먼지 등)의
-                  배출이 발생하지 않는다. 또한, 일반적으로 에너지 효율이 훨씬
-                  높아 집약적 에너지 소비를 가능하게 한다. 이외에도 신재생에너지
-                  및 신규 기술과의 연계를 통해 전력망의 안정성 향상 등
-                  사회전반에 미치는 영향이 크다.
+                  친환경차는 기술개발 속도, 이용 환경 등이 다각적으로 검토되어 보급 속도가
+                  결정되어야 한다. 너무 급진적인 전환은 자동차 산업 및 고용에 부정적 영향을
+                  미칠 수 있기 때문이다. 하지만 국제적으로 탈내연기관 선언이 이어지고 있다는
+                  점은 급진적 전환이 필요한 상황임을 보여주고 있으며, 변화를 주도하지 못한다면
+                  자칫 국제 시장에서 도태될 위험성도 존재한다. 또한, 기후변화의 심각성이 점차 
+                  체감됨에 따라 내연기관차에 대한 규제도 점차 강화되고 있다.
+                  * EU는 2035년부터 내연기관 신차 판매를 금지할 계획이다. 2020년 11월 우리나라
+                  국가기후환경회의는 2035년에 내연기관 판매 중단을 제안한 바 있다. 서울시는
+                  2035년부터 내연기관차 신규 등록 금지르 추진하고 있다.
+ 
                 </div>
               </div>
               <div className="space-y-3 col-span-2">
@@ -94,15 +97,15 @@ export const TransportPage = () => {
         <div className="text-xl font-semibold">Reference</div>
         <div className="space-y-2">
           <div className="flex items-center space-x-3">
-            <div className="text-[#059669] font-bold">Reference 1</div>
+            <div className="text-[#059669] font-bold"> 2</div>
             <div>
-              이 같은 장기목표를 달성하기 위해서는 단기적인 노력이 중요하다.
+              2030 국가 온실가스 감축목표(NDC) 상향안(2021.10.18. 관계부처 합동)
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <div className="text-[#059669] font-bold">Reference 2</div>
+            <div className="text-[#059669] font-bold"> 3</div>
             <div>
-              이 같은 장기목표를 달성하기 위해서는 단기적인 노력이 중요하다.
+              제4차 친환경자동차 기본계획(2021~2025)(2021.2. 관계부처 합동) 
             </div>
           </div>
         </div>
