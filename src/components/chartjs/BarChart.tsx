@@ -18,6 +18,7 @@ interface BarChartProps {
   simulation?: object;
   labelMap?: { [name: string]: string };
   dataOptions?: object;
+  ylabel?: string;
 }
 
 const backgroundColor: string[] = [
@@ -41,6 +42,7 @@ export const BarChart: React.FC<BarChartProps> = ({
   simulation,
   labelMap,
   dataOptions,
+  ylabel,
 }) => {
   const [data, setData] = useState<ChartData<'bar', number[], unknown>>({
     labels: [''],
@@ -82,9 +84,13 @@ export const BarChart: React.FC<BarChartProps> = ({
         },
       },
     },
-    scale: {
+    scales: {
       y: {
         max: undefined,
+        title: {
+          display: true,
+          text: ylabel,
+        },
       },
     },
     indexAxis: undefined,
@@ -108,7 +114,7 @@ export const BarChart: React.FC<BarChartProps> = ({
       Object.entries(dataOptions).forEach(([key, value], index) => {
         if (key === 'barThickness') barThickness = value;
 
-        if (key === 'max') options.scale.y.max = value;
+        if (key === 'max') options.scales.y.max = value;
 
         if (key === 'indexAxis') options.indexAxis = value;
 

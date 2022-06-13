@@ -27,6 +27,7 @@ interface PieChartProps {
   simulation?: object;
   labelMap?: { [name: string]: string };
   className?: string;
+  ylabel?: string;
 }
 
 const backgroundColor: string[] = [
@@ -51,6 +52,7 @@ export const PieChart: React.FC<PieChartProps> = ({
   simulation,
   labelMap,
   className,
+  ylabel,
 }) => {
   const [data, setData] = useState<ChartData<'pie', number[], string>>({
     labels: [],
@@ -97,6 +99,14 @@ export const PieChart: React.FC<PieChartProps> = ({
           size: 16,
           weight: 'bold',
           lineHeight: 2.0,
+        },
+      },
+      scales: {
+        y: {
+          title: {
+            display: true,
+            text: ylabel,
+          },
         },
       },
     },

@@ -26,6 +26,7 @@ interface StackedMultiBarChartProps {
   simulation?: object;
   labelMap?: { [name: string]: string };
   dataOptions?: object;
+  ylabel?: string;
 }
 
 // Need to apply some color scheme
@@ -50,6 +51,7 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
   simulation,
   labelMap,
   dataOptions,
+  ylabel,
 }) => {
   const [data, setData] = useState<ChartData<'bar', number[], unknown>>({
     labels: [''],
@@ -127,6 +129,10 @@ export const StackedMultiBarChart: React.FC<StackedMultiBarChartProps> = ({
       y: {
         stacked: true,
         max: undefined,
+        title: {
+          display: true,
+          text: ylabel,
+        },
       },
     },
     maintainAspectRatio: undefined,

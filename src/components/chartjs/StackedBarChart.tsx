@@ -26,6 +26,7 @@ interface StackedBarChartProps {
   lineLabels?: string[];
   simulation?: object;
   labelMap?: { [name: string]: string };
+  ylabel?: string;
 }
 
 const backgroundColor: string[] = [
@@ -49,6 +50,7 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
   lineLabels,
   simulation,
   labelMap,
+  ylabel,
 }) => {
   const [data, setData] = useState<ChartData<'bar', number[], unknown>>({
     labels: [''],
@@ -125,6 +127,10 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
       },
       y: {
         stacked: true,
+        title: {
+          display: true,
+          text: ylabel,
+        },
       },
     },
   };
