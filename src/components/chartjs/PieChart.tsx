@@ -73,12 +73,12 @@ export const PieChart: React.FC<PieChartProps> = ({
       tooltip: {
         callbacks: {
           label: function (context: any) {
-            let label = context.dataset.label || '';
+            let label = context.label || '';
             if (label) {
               label += ': ';
             }
             if (context.parsed.y !== null) {
-              label += context.parsed.y.toFixed(1);
+              label += Number(context.parsed.toFixed(1)).toLocaleString();
             }
             return label;
           },
