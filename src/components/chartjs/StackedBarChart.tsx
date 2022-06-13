@@ -133,26 +133,6 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
     let newData = JSON.parse(JSON.stringify(data));
     newData.datasets.length = 0;
 
-    if (labels) {
-      for (const [idx, label] of labels.entries()) {
-        if (simulation.hasOwnProperty(label)) {
-          type _keyType = keyof typeof simulation;
-          const _key = label as _keyType;
-
-          let newLabel = label;
-
-          if (labelMap) newLabel = labelMap[label as string];
-
-          newData.datasets.push({
-            type: 'bar',
-            label: newLabel,
-            data: [simulation[_key]],
-            barThickness: 50,
-            backgroundColor: backgroundColor[idx],
-          });
-        }
-      }
-    }
     if (lineLabels) {
       for (const [idx, label] of lineLabels.entries()) {
         if (simulation.hasOwnProperty(label)) {
@@ -169,6 +149,27 @@ export const StackedBarChart: React.FC<StackedBarChartProps> = ({
             data: [simulation[_key]],
             // barThickness: 50,
             backgroundColor: backgroundColor[10],
+          });
+        }
+      }
+    }
+
+    if (labels) {
+      for (const [idx, label] of labels.entries()) {
+        if (simulation.hasOwnProperty(label)) {
+          type _keyType = keyof typeof simulation;
+          const _key = label as _keyType;
+
+          let newLabel = label;
+
+          if (labelMap) newLabel = labelMap[label as string];
+
+          newData.datasets.push({
+            type: 'bar',
+            label: newLabel,
+            data: [simulation[_key]],
+            barThickness: 50,
+            backgroundColor: backgroundColor[idx],
           });
         }
       }
