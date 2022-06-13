@@ -54,6 +54,7 @@ export const P2XPage = () => {
           <BarChart 
             title="P2X 설비 구성"
             labels={ P2XFacilityConfigurationLabels }
+            labelMap={ P2XFacilityConfigurationLabelMap }
             simulation={ simulationState.useSelector((state) => state?.facility_configuration) } 
             dataOptions={ P2XFacilityConfigurationChartOptions }
           />
@@ -67,6 +68,7 @@ export const P2XPage = () => {
           <StackedBarChart 
             title="초과 생산량 활용" 
             labels={ P2XExcessProductionUsageLabels }
+            labelMap={ P2XExcessProductionUsageLabelMap }
             simulation={ simulationState.useSelector((state) => state?.power_generation) }
           />
         </div>
