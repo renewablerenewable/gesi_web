@@ -3,8 +3,9 @@ import { LineChart } from '../components/chartjs/LineChart';
 import { FillterBar } from '../components/FillterBar';
 import { simulationState } from '../plugins/ridge'
 
-const upperLabels = ['Nuke', 'coal_PP', 'NG_PP', 'PP', 'CHP', 'PV', 'WT', 'other', 'battery_out', 'pumped_out']
+const upperLabels = ['el_demand', 'Nuke', 'coal_PP', 'NG_PP', 'PP', 'CHP', 'PV', 'WT', 'other', 'battery_out', 'pumped_out']
 const upperLabelMap = {
+  'el_demand': 'el_demand',
   'Nuke' : '원자력',
   'coal_PP' : '석탄화력',
   'NG_PP' : 'LNG화력', 
