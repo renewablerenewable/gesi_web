@@ -57,6 +57,7 @@ export const P2XPage = () => {
             labelMap={ P2XFacilityConfigurationLabelMap }
             simulation={ simulationState.useSelector((state) => state?.facility_configuration) } 
             dataOptions={ P2XFacilityConfigurationChartOptions }
+            ylabel="MW, MWh"
           />
           <StackedBarChart 
             title="에너지 밸런싱" 
@@ -64,12 +65,14 @@ export const P2XPage = () => {
             lineLabels={ P2XEnergyBalancingLineData }
             simulation={ simulationState.useSelector((state) => state?.power_generation) }
             labelMap={ P2XEnergyBalancingDataMap }
+            ylabel="TWh"
           />
           <StackedBarChart 
             title="초과 생산량 활용" 
             labels={ P2XExcessProductionUsageLabels }
             labelMap={ P2XExcessProductionUsageLabelMap }
             simulation={ simulationState.useSelector((state) => state?.power_generation) }
+            ylabel="TWh"
           />
         </div>
       </div>
