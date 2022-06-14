@@ -6,14 +6,23 @@ import { BarChart } from '../components/chartjs/BarChart';
 import { FillterBar } from '../components/FillterBar';
 import { scenarioState, simulationState } from '../plugins/ridge';
 
-let stackedMultiBarChartLabels = ['home_2020', 'home_2030', 'commerce_2020', 'commerce_2030']
-const stackedMultiBarChartLabelMap = {
+let stackedMultiBarChartBarLabels = ['home_2020', 'home_2030', 'commerce_2020', 'commerce_2030']
+const stackedMultiBarChartBarLabelMap = {
   'home_2020': '가정 \'20',
   'home_2030': '가정 \'30',
   'home_2050': '가정 \'50',
   'commerce_2020': '상업 \'20',
   'commerce_2030': '상업 \'30',
   'commerce_2050': '상업 \'50',
+}
+const stackedMultiBarChartLabels = ['district_heating', 'city_gas', 'oil', 'coal', 'electric_heating', 'others']
+const stackedMultiBarChartLabelMap = {
+  'district_heating': '지역난방', 
+  'city_gas': '도시가스', 
+  'oil': '석유', 
+  'coal': '석탄', 
+  'electric_heating': '전력', 
+  'others': '기타'
 }
 const stackedMultiBarChartOptions = {
   maintainAspectRatio: false,
@@ -61,7 +70,7 @@ export const P2HConversionPage = () => {
     home_target = 'home_2050'
     commerce_target = 'commerce_2050'
   }
-  stackedMultiBarChartLabels = ['home_2020', home_target, 'commerce_2020', commerce_target]
+  stackedMultiBarChartBarLabels = ['home_2020', home_target, 'commerce_2020', commerce_target]
 
   return (
     <div>
@@ -71,8 +80,10 @@ export const P2HConversionPage = () => {
             <StackedMultiBarChart 
               title="건물 부분 에너지 소비"
               labels={ stackedMultiBarChartLabels }
+              barLabels={ stackedMultiBarChartBarLabels }
               simulation={ simulationState.useSelector((state) => state?.P2H_consumption_change)  }
-              labelMap= { stackedMultiBarChartLabelMap }
+              labelMap={ stackedMultiBarChartLabelMap }
+              barLabelMap= { stackedMultiBarChartBarLabelMap }
               dataOptions={ stackedMultiBarChartOptions }
             />
           </div>
