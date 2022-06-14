@@ -78,6 +78,7 @@ export const EnergySystemPage = () => {
             dataOptions={facilityConfigurationChartOptions}
             labels={facilityConfigurationLabels}
             labelMap={facilityConfigurationLabelMap}
+            ylabel="MW"
           />
         </div>
       </div>
