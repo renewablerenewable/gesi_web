@@ -3,7 +3,7 @@ import { Button } from './Button';
 import { LabelButton } from './LabelButton';
 import { SelectButton } from './SelectButton';
 
-import { scenarioState } from '../plugins/ridge';
+import { activationState, scenarioState } from '../plugins/ridge';
 
 export const FillterBar = () => {
   const [scenario, setScenario] = scenarioState.use(); 
@@ -16,7 +16,7 @@ export const FillterBar = () => {
   const [powerPv, setPowerPv] = useState<number>(scenario.powerPv);
   const [powerWt, setPowerWt] = useState<number>(scenario.powerWt);
 
-  const [activated, setActivated] = useState<boolean>(false);
+  const [activated, setActivated] = activationState.use();
 
   function runSimulation() {
     if (activated === false)

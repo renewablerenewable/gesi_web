@@ -14,6 +14,8 @@ export const tokenState = newRidgeState<string | null>(null, {
 
 export const osState = newRidgeState<string>('');
 
+export const activationState = newRidgeState<boolean>(false);
+
 export const scenarioState = newRidgeState<Scenario>(
   {
     target: false,
